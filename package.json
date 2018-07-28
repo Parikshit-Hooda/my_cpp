@@ -1,0 +1,23 @@
+{
+  "name": "my_cpp",
+  "version": "1.0.0",
+  "description": "a simple cmd script to stop writing status,add,commit,push. uses node-run-cmd",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Parikshit-Hooda/my_cpp.git"
+  },
+  "author": "Parikshit Hooda",
+  "license": "GPL-2.0",
+  "bugs": {
+    "url": "https://github.com/Parikshit-Hooda/my_cpp/issues"
+  },
+  "homepage": "https://github.com/Parikshit-Hooda/my_cpp#readme",
+  "dependencies": {
+    "node-run-cmd": "^1.0.1",
+    "prompt": "^1.0.0"
+  }
+}
