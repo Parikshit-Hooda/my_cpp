@@ -74,16 +74,4 @@ class DynamicArray {
 		}
 		cout << endl;
 	}
-
-
-
-
-
-
-
-
-
-
-
-
 };

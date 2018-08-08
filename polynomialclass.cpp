@@ -94,7 +94,9 @@ class Polynomial {
     int *degCoeff;      // Name of your array (Don't change this)
     int capacity;
     int totalEle;
+  
   public :
+  
   Polynomial() {
     capacity = 10;
     totalEle = 0;
@@ -103,7 +105,7 @@ class Polynomial {
       degCoeff[i] = 0;
   }
   
-  Polynomial(Polynomial const P1) {
+  Polynomial(Polynomial const &P1) {
     Polynomial newPolynomial();
     newPolynomial ->
     
@@ -114,17 +116,34 @@ class Polynomial {
     
   }
   
-  void operator+(Polynomial const &P2) const {
-    Polynomial P3;
+  Polynomial& operator+(Polynomial const &P2) const {
+    Polynomial *P3 = new Polynomial();
+    for(int i = 0 ; i < capacity ; i++)
+      P3->degCoeff[i] = this->degCoeff[i] + P2.degCoeff[i];
     
+    return P3;
+       
   }
   
-  void operator*(Polynomial const &P3) const {
+  Polynomial& operator-(Polynomial const &P2) const {
+    Polynomial *P3 = new Polynomial();
+    for(int i = 0 ; i < capacity ; i++)
+      P3->degCoeff[i] = this->degCoeff[i] - P2.degCoeff[i];
+    
+    return P3;
+  }
+  
+  Polynomial& operator*(Polynomial const &P3) const {
+    Polynomial *P3 = new Polynomial();
+    
     
   }
   
   void operator=(Polynomial const &P3) const {
-    
+    for(int i = 0 ; i < this->capacity ; i++)
+    {
+      this.degCoeff[i] = P3.degCoeff[i];
+    }
   }
   
   void print() const {
