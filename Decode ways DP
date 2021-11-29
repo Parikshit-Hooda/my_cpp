@@ -1,0 +1,65 @@
+//https://www.youtube.com/watch?v=jFZmBQ569So&list=PL-Jc9J83PIiG8fE6rj9F5a6uyQ5WPdqKy&index=22
+#include <iostream>
+#include <vector>
+#include <string>
+using namespace std;
+
+int decodeWays(string str) {
+	
+	if(str.size() == 0) return 0;
+	
+	int strsize = str.size();
+	
+	vector<int> dp(strsize, 0);
+	
+	// dp[0] = 0;
+	
+	if(str[0] == '0') dp[0] = 0;
+	else dp[0] = 1;
+	
+	for(int i = 1; i < strsize; i++) {
+		//calculate current substring - last1 and last2
+		char last1 = str[i];
+		char last2 = str[i-1];
+
+		if(last1 == '0' && last2 == '0') {
+			dp[i] = 0;
+		} else if (last2 != '0' && last1 == '0') {
+			if((last2 == '1' || last2 == '2')) {
+				if(i >= 2)
+					dp[i] = dp[i-2];
+				else dp[i] = 1;
+			}
+			else dp[i] = 0;
+		} else if (last1 != '0' && last2 == '0') {
+			dp[i] = dp[i-1];
+		} else {
+			//last1 and last2 are non-zero
+			dp[i] = dp[i-1];
+			if((last2 == '1' || last2 == '2')) {
+				if(i >= 2)
+					dp[i] += dp[i-2];
+				else dp[i] += 1;
+			}
+				
+		}
+		
+	} // i - for loop end parenthesis
+	
+// 	for(auto i : dp) {
+// 		cout << i << " " ;
+// 	}
+// 	cout << endl;
+	
+	return dp[strsize-1];
+	// return 0;
+}
+
+int main() {
+	// your code goes here
+	string str;
+	getline(cin, str); 
+	cout << decodeWays(str);
+	// cout << str << " \n" << str1 ;
+	return 0;
+}
