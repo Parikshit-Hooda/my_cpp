@@ -1,0 +1,91 @@
+//https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/unbounded-knapsack-official/ojquestion
+#include <iostream>
+#include <vector>
+#include <cmath>
+#include <climits>
+
+using namespace std;
+
+void unboundedKnapsack(int n, vector<int> val, vector<int> weight, int cap) {
+
+// write your code here
+
+    if(val.size()==0 || weight.size()==0) {
+        cout << "0";
+        return ;
+    }
+    
+    if(cap == 0) {
+        cout << "0";
+        return ;
+    }
+    
+    int vsize = val.size();
+    int wsize = weight.size();
+    
+    //vector<vector<int>> vec( n , vector<int> (m, 0));
+    vector<vector<int>> dp(vsize+1, vector<int> (cap+1, 0));
+    
+    for(int i = 0 ; i < dp.size(); i++) {
+        dp[i][0] = 0;
+    }
+    
+    
+    for(int i = 0 ; i < dp[0].size(); i++) {
+        dp[0][i] = 0;
+    }
+
+
+    //iterate over 2d dp array. dp[row][col] = maximum value that the knapsack can hold if first 'row' items are picked and the knapsack capacity is 'col'
+    
+    for(int i = 1; i < dp.size(); i++){
+        for(int j = 1; j < dp[0].size(); j++) {
+            
+            dp[i][j] = dp[i-1][j]; // by default, not include current element
+            
+            int rcap = j - weight[i-1]; //if we decide to include current element, rcap capacity will be left over
+            
+            if(rcap >= 0) {
+                //max is either including the same element again, or including all the elements we could include from the previous step
+                int same_ele;
+                int diff_ele;
+                
+                same_ele = dp[i-1][rcap] + val[i-1];
+                diff_ele = dp[i][rcap] + val[i-1];
+                
+                dp[i][j] = max(dp[i][j], same_ele);
+                dp[i][j] = max(dp[i][j], diff_ele);
+                
+            }
+ 
+            //dp[i][j]  = max(dp[i-1][j], dp[i-1][j-weight[i-1]], dp[i][j-weight])
+
+        }
+    }
+
+    cout << dp[n][cap];
+
+    return ;
+}
+
+
+int main() {
+
+  int n;
+  cin >> n;
+  vector<int> val(n);
+  for (int i = 0; i < n; i++) {
+
+    cin >> val[i];
+  }
+  vector<int> weight(n);
+  for (int i = 0; i < n; i++) {
+    cin >> weight[i];
+  }
+  int cap;
+  cin >> cap;
+
+  unboundedKnapsack(n, val, weight, cap);
+
+
+}
