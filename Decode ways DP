@@ -4,8 +4,8 @@
 #include <string>
 using namespace std;
 
-int decodeWays(string str) {
-	
+    int numDecodings(string str) {
+      	
 	if(str.size() == 0) return 0;
 	
 	int strsize = str.size();
@@ -36,7 +36,7 @@ int decodeWays(string str) {
 		} else {
 			//last1 and last2 are non-zero
 			dp[i] = dp[i-1];
-			if((last2 == '1' || last2 == '2')) {
+			if((last2 == '1' && last1 <= '9') || (last2 == '2' && last1 <= '6')) {
 				if(i >= 2)
 					dp[i] += dp[i-2];
 				else dp[i] += 1;
@@ -46,20 +46,20 @@ int decodeWays(string str) {
 		
 	} // i - for loop end parenthesis
 	
-// 	for(auto i : dp) {
-// 		cout << i << " " ;
-// 	}
-// 	cout << endl;
+	for(auto i : dp) {
+		cout << i << " " ;
+	}
+	cout << endl;
 	
 	return dp[strsize-1];
-	// return 0;
-}
+	// return 0;  
+    }
 
 int main() {
 	// your code goes here
 	string str;
 	getline(cin, str); 
-	cout << decodeWays(str);
+	cout << numDecodings(str);
 	// cout << str << " \n" << str1 ;
 	return 0;
 }
