@@ -1,0 +1,59 @@
+//https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/maximum-sum-non-adjacent-elements-official/ojquestion
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+int fn(vector<int> v) {
+	if(v.size() == 0 ) return 0;
+	if(v.size() == 1) return v[0];
+	
+	vector<vector<int>> dp(2, vector<int> (v.size()+1, 0));
+	
+	int vsize = v.size();
+	
+	dp[0][0] = 0;
+	dp[1][0] = 0;
+	dp[0][1] = 0; //exclude;
+	dp[1][1] = v[0];
+	
+	for(int i = 2; i < dp[0].size(); i++) {
+		dp[0][i] = max(dp[0][i-1], dp[1][i-1]); //exclude
+		dp[1][i] = dp[0][i-1] + v[i-1]; //include
+	} 
+	
+
+	// for(int i = 0 ; i < dp.size(); i++) {
+	// 	for(int j = 0 ; j < dp[i].size(); j++) {
+	// 		cout << dp[i][j] << " ";
+	// 	}
+	// 	cout << endl;
+	// }
+
+
+	int res = max(dp[0][dp[0].size()-1], dp[1][dp[0].size()-1]);
+	return res;
+	
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+	vector<int> v(n, 0);
+	for(int i = 0 ; i < n; i++) {
+		int temp;
+		cin >> temp;
+		v[i] = temp;
+	// }
+	}
+	
+	// for(auto i : v) { //ok
+	// 	cout << i << " ";
+	// }
+	// cout << endl;
+	
+	cout << fn(v);
+	return 0;
+}
