@@ -1,0 +1,61 @@
+//https://www.pepcoding.com/resources/online-java-foundation/dynamic-programming-and-greedy/paint-house-official/ojquestion
+#include <iostream>
+#include <vector>
+#include <cmath>
+
+using namespace std;
+
+int paintHouseCost(vector<vector<int>> ip) {
+	
+	int numHouses = ip.size();
+	int numColors = ip[0].size();
+	
+	if(numHouses == 0) return 0;
+	
+	vector<vector<int>> dp(3, vector<int> (numHouses, 0));
+	
+	dp[0][0] = ip[0][0];
+	dp[1][0] = ip[0][1];
+	dp[2][0] = ip[0][2];
+	
+	for(int i = 1 ; i < dp[0].size(); i++) {
+		dp[0][i] = min(dp[1][i-1], dp[2][i-1]) + ip[i][0];
+		dp[1][i] = min(dp[0][i-1], dp[2][i-1]) + ip[i][1];
+		dp[2][i] = min(dp[0][i-1], dp[1][i-1]) + ip[i][2];
+	}
+	
+	int res = min(dp[0][dp[0].size()-1], dp[1][dp[0].size()-1]);
+	res = min(res, dp[2][dp[0].size()-1]);
+	
+	return res;
+	
+	
+}
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+	
+	vector<vector<int>> ip(n, vector<int> (3, 0));
+	
+	for(int i = 0 ; i < n; i++) {
+		for(int j = 0 ; j < 3; j++) {
+			cin >> ip[i][j];
+		}
+	}
+	
+	cout << paintHouseCost(ip);
+	
+	// 	for(int i = 0 ; i < n; i++) {
+	// 	for(int j = 0 ; j < 3; j++) {
+	// 		cout << ip[i][j] << " ";
+	// 	}
+		
+	// 	cout << endl;
+	// }
+	
+	// cout << ip.size() << " " << ip[0].size();
+	
+	return 0;
+}
