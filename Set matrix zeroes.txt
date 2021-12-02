@@ -1,0 +1,96 @@
+class Solution {
+public:
+    void setZeroes(vector<vector<int>> &m) {
+	
+	int row = m.size(), col = m[0].size(), rval = 0, cval = 0;
+	
+	if(row == 0) return ;
+	
+	for(int i = 0 ; i < row ; i++) {
+		if(m[i][0] == 0) cval = 1;
+		for(int j = 1 ; j < col ; j++) {
+			if(m[i][j] == 0) {
+				m[i][0] = m[0][j] = 0;
+			}
+		}
+	}
+	
+	for(int i = row-1; i >= 0 ; i--) {
+		for(int j = col-1 ; j >= 1; j--) {
+			if(m[i][0] == 0 || m[0][j] == 0) {
+				m[i][j] = 0;
+			}
+		}
+		if(cval == 1) m[i][0] = 0;
+	}
+	
+	// if(row == 1) {
+	// 	//if any element is 0, make entire row 0
+	// 	for(int i = 0 ; i < col ; i++) {
+	// 		if(m[0][i] == 0) {
+	// 			for(int j = 0 ; j < col; j++) {
+	// 				m[0][j] = 0;
+	// 			}
+	// 		}
+	// 	}
+	// }
+	
+	// if(col == 1) {
+	// 	//if any element is 0, make entire row 0
+	// 	for(int i = 0 ; i < row ; i++) {
+	// 		if(m[i][0] == 0) {
+	// 			for(int j = 0 ; j < row; j++) {
+	// 				m[j][0] = 0;
+	// 			}
+	// 		}
+	// 	}
+	// }
+	
+	
+	// //find if any 0 in first row and first col
+	// for(int i = 1 ; i < row ; i++) { //check in first column
+	// 	if(m[i][0] == 0) {
+	// 		cval = 1;
+	// 		break;
+			
+	// 	}
+	// }
+	
+	// for(int i = 0 ; i < col ; i++) { //check in first row
+	// 	if(m[0][i] == 0) 
+	// 	{rval = 1;
+	// 	break;
+	// 	}
+	// }
+	
+	// //iterate from second row and second column till last
+	// for(int i = 1 ; i < row ; i++) {
+	// 	for(int j = 1 ; j < col ; j++) {
+	// 		if(m[i][j] == 0) {
+	// 			m[i][0] = 0;
+	// 			m[0][j] = 0;
+	// 		}
+	// 	}
+	// }
+	
+	// //iterate backwards from bottom right element to top-left
+	// for(int i = row-1; i >=1  ; i--) {
+	// 	for(int j = col-1; j>=1; j--) {
+	// 		if(m[i][0] == 0 || m[0][j] == 0) {
+	// 			m[i][j] = 0;
+	// 		}
+	// 	}
+	// 	if(cval == 0) m[i][0] = 0;
+	// }
+	
+	// if(rval == 1) {
+	// 	for(int i = 0 ; i < col ; i++) {
+	// 		m[0][i] = 0;
+	// 	}
+	// }
+	
+	// cout << endl << rval << " " << cval;
+	
+	return ;
+} 
+};
