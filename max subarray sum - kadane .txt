@@ -1,0 +1,28 @@
+class Solution {
+public:
+    int maxSubArray(vector<int>& arr) {
+            
+    if(arr.size() == 0) return 0;
+    if(arr.size() == 1) return arr[0];
+    
+    int arrsize = arr.size();
+    
+    int sum, msum, nsp1, nsp2;
+    sum = arr[0], msum = arr[0];
+    
+    for(int i = 1 ; i < arrsize ; i++) {
+        nsp1 = sum + arr[i]; //include curr ele
+        nsp2 = arr[i]; //make new subarray from current ele
+        
+        if(nsp1 >= nsp2) {
+            sum = nsp1;
+        }
+        else sum = nsp2;
+        
+        if(sum > msum) msum = sum;
+        
+    }
+    
+    return msum;
+    }
+};
