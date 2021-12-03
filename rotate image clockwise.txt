@@ -1,0 +1,56 @@
+//https://leetcode.com/problems/rotate-image/
+class Solution {
+public:
+    void rotate(vector<vector<int>>& m) {
+        if(m.size() == 0 || m.size() == 1) return ;
+        
+        int msize = m.size();
+        
+        int currSubmatrixSide = m.size();
+        
+        pair<int, int> tl = {0,0}, tr = {0,msize-1}, bl = {msize-1,0}, br = {msize-1, msize-1};
+        //tl = top-left index, tr - top-right, bl - bottom left, br - bottom right
+        
+        //loop till currSubmatrixSide > 1. check with tl and tr for currSubmatrixSide
+        while(currSubmatrixSide > 1) {
+            //first rotate 
+            pair<int, int> o_tl = tl, o_tr = tr, o_bl = bl, o_br = br;
+            
+            
+            //loop till tl < tr
+            while(tl.second < tr.second) { // from left to right on top row
+                int temp1, temp2, temp3, temp4;
+                //store temp values in clockwise fashion
+                temp1 = m[tl.first][tl.second];
+                temp2 = m[tr.first][tr.second];
+                temp3 = m[br.first][br.second];
+                temp4 = m[bl.first][bl.second];
+                
+                //update matrix
+                m[tl.first][tl.second] = temp4;
+                m[tr.first][tr.second] = temp1;
+                m[br.first][br.second] = temp2;
+                m[bl.first][bl.second] = temp3;
+                
+                //update tl, tr, bl, br
+                tl.second++;
+                tr.first++;
+                bl.first--;
+                br.second--;
+                
+            }
+            
+            
+            
+            //then update the currSubmatrixSide and tl, tr, bl, br
+            currSubmatrixSide -= 2; //reduce size of current sub matrix by 2
+            tl.first = o_tl.first+1, tl.second = o_tl.second+1;
+            tr.first = o_tr.first+1, tr.second = o_tr.second-1;
+            br.first = o_br.first-1, br.second = o_br.second-1;
+            bl.first = o_bl.first-1, bl.second = o_bl.second+1;
+            
+        }
+        
+        
+    }
+};
