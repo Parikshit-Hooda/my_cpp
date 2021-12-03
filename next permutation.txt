@@ -1,0 +1,61 @@
+//https://leetcode.com/problems/next-permutation/
+class Solution {
+public:
+
+void swap(vector<int> &a, int fidx, int sidx) {
+	int temp = a[fidx];
+	a[fidx] = a[sidx];
+	a[sidx] = temp;
+	
+	return ;
+}
+
+void reverse(vector<int> &a, int idx) {
+	int asize = a.size();
+	int f = idx, s = asize-1;
+	while(f < s) {
+		swap(a, f, s);
+		f++;
+		s--;
+	}
+	
+	return ;
+}
+
+
+void nextPermutation(vector<int> &a) {
+	int asize = a.size();
+	
+	if(asize == 0 || asize == 1) return ;
+	
+	//iterate from right
+	//select first a[i] such that a[i] < a[i+1]
+	int ridx;
+	for(ridx = asize-2; ridx >= 0; ridx--) {
+		if(a[ridx] < a[ridx+1])
+			break;
+	}
+	// cout << ridx << endl;
+	if(ridx < 0) {
+		//reverse entire array
+		reverse(a, 0);
+		return ;
+	}
+	
+	//find first element from right that's just bigger than a[ridx] 
+	int bidx = asize-1;
+	for(bidx; bidx > ridx; bidx--) {
+		if(a[ridx] < a[bidx])
+		{
+			swap(a, ridx, bidx);
+			break;
+		}
+	}
+	
+	reverse(a,ridx+1);
+	
+	return ;
+	
+	
+}
+};
