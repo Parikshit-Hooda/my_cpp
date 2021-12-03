@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/sort-colors/
+class Solution {
+public:
+void swap(vector<int> &a, int fidx, int sidx) {
+	int temp = a[fidx];
+	a[fidx] = a[sidx];
+	a[sidx] = temp;
+	
+	return ;
+}
+
+void sortColors(vector<int> &a) {
+	int asize = a.size();
+	
+	if(asize == 0 || asize == 1) return ;
+	
+	int r0, r1, r2;
+	r0 = 0, r1 = 0, r2 = asize-1;
+	
+	//make three regions 0s = 0 to r0-1, 
+	//1s = r0 to r1-1
+	//2s = r2+1 to end
+	
+	while(r1 <= r2) {
+		if(a[r1] == 0) {
+			swap(a, r1, r0);
+			r0++;
+			r1++;
+		} else if (a[r1] == 1) {
+			swap(a, r0, r1);
+			r1++;
+		} else if (a[r1] == 2) {
+			swap(a, r1, r2);
+			r2--;			
+		} else {
+			cout << "error occured.";
+            return ;
+		}
+	}
+	
+	return ;
+	
+}
+};
