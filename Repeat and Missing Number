@@ -1,0 +1,49 @@
+//https://www.interviewbit.com/problems/repeat-and-missing-number-array/
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+vector<int> findDuplicate(vector<int>& nums) {
+	vector<int> res;
+        if(nums.size() == 0) return res;
+        if(nums.size() == 1) return res;
+
+        //loop from start to end of nums array
+        int res1, res2;
+        
+        for(int i = 0 ; i < nums.size(); i++) {
+            int idx = nums[i] < 0 ? (-1 * nums[i]) : nums[i];
+            int to_check_idx = idx-1;
+
+            if(nums[to_check_idx] < 0) {
+            	//return answer
+            	res1 = to_check_idx+1;
+            } else {
+            	nums[to_check_idx] *= -1;
+            }
+
+        }
+        
+        for(int i = 0 ; i < nums.size(); i++) {
+        	if(nums[i] > 0) {
+        		res2 = i+1;
+        	}
+        }
+        
+        cout << res1 << " " << res2;
+        res.push_back(res1);
+        res.push_back(res2);
+        
+        return res;
+       
+    }
+
+
+int main() {
+	// your code goes here
+	vector<int> nums = {1,1};
+
+	findDuplicate(nums);
+	return 0;
+}
