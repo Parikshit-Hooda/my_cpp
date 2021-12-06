@@ -1,0 +1,59 @@
+//https://leetcode.com/problems/majority-element-ii/
+class Solution {
+public:
+    vector<int> majorityElement(vector<int>& nums) {
+        
+        vector<int> result;
+        if(nums.size() == 0) return result;
+        
+        int num1 = INT_MIN, num2 =INT_MIN, c1 = 0, c2 = 0;
+        
+        for(int i = 0; i < nums.size(); i++) {
+            if(nums[i] == num1) c1++;
+            else if(nums[i] == num2) c2++;
+            else if(c1 == 0 && nums[i] != num2) {
+                num1 = nums[i];
+                c1 = 1;
+               // continue;
+                
+            } else if(c2 == 0 && nums[i] != num1) {
+                num2 = nums[i];
+                c2 = 1;
+              //  continue;
+            } else {
+                c1--;
+                c2--;
+            }
+            
+        }
+        
+     //  cout << c1 << " " << c2 << endl;
+      //  cout << num1 << " " << num2 << endl;
+        
+        int curr_test_num = num1;
+        int minreq = floor(nums.size()/3);
+        int count = 0;
+       // if(curr_test_num >= 0) {
+            //test for number of occurence
+            for(int i = 0; i < nums.size(); i++) {
+                if(curr_test_num == nums[i]) count++;
+            }
+     //   } 
+        
+        if(count > minreq) result.push_back(curr_test_num);
+        
+        curr_test_num = num2;
+        count = 0;
+        //if(curr_test_num >= 0) {
+            //test for number of occurence
+            for(int i = 0; i < nums.size(); i++) {
+                if(curr_test_num == nums[i]) count++;
+            }
+      //  } 
+        
+        if(count > minreq) result.push_back(curr_test_num);
+        
+      return result;  
+        
+    }
+};
