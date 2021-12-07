@@ -1,0 +1,114 @@
+//https://practice.geeksforgeeks.org/problems/largest-subarray-with-0-sum
+// { Driver Code Starts
+//Initial Template for C++
+
+#include <bits/stdc++.h>
+using namespace std;
+
+
+ // } Driver Code Ends
+/*You are required to complete this function*/
+
+class Solution{
+    public:
+    int maxLen(vector<int>&a, int n)
+    {   
+        // Your code here
+        
+        if(a.size() == 0) return 0;
+        if(a.size() == 1) {
+            if(a[0] == 0) return 1;
+        }
+        
+        unordered_map<int, int> mp;
+        
+        int csum = 0;
+        int maxlen = 0;
+        
+        for(int i = 0 ; i < a.size(); i++) {
+            csum += a[i];
+            
+            if(csum == 0) {
+                maxlen = max(maxlen, i-0+1);
+            } else {
+                //if a[i] exists in map, update maxlen
+                if(mp.find(csum) != mp.end()) {
+                    //update maxlen
+                    int previdx = mp[csum];
+                    maxlen = max(maxlen, i-previdx);
+                } else {
+                    mp[csum] = i;
+                }
+                //if doesn't exist, put value in map
+            }
+            
+            
+            
+        }
+        return maxlen;
+        //a vector has > 1 size 
+        // unordered_map<int, vector<int>> psumToIdxMp;
+        // int curr = a[0];
+        // psumToIdxMp[curr] = {0};
+        // int currpsum = a[0];
+        // int maxlen = INT_MIN;
+        // for(int i = 1; i < a.size(); i++) {
+            
+        //     //find new prefix sum
+        //     currpsum = currpsum + a[i]; //13, 15, 7, 8
+        //     //if prefix sum exists as key in map, append i
+        //     if(psumToIdxMp.find(currpsum) != psumToIdxMp.end()) {
+        //         vector<int> tempvec = psumToIdxMp[currpsum];
+        //         tempvec.push_back(i);
+        //         psumToIdxMp[currpsum] = tempvec;
+        //     }
+        //     //if not, create new key:value in map
+        //     psumToIdxMp[currpsum] = {i};
+            
+        // }
+        
+        // //iterate over psumToIdxMp map, find greatest 
+        // //difference between first and last index
+        // unordered_map<int, vector<int>>::iterator itr;
+        // int currMaxSum = INT_MIN;
+        // for(itr = psumToIdxMp.begin(); itr != psumToIdxMp.end(); itr++) {
+        //     cout << (*itr).first << endl;
+            
+        //   //  cout << (*itr).second << endl;
+        //     vector<int> indexvec = (*itr).second;
+        //     for(auto k : indexvec) {
+        //         cout << k << " ";
+        //     }
+        //     cout << endl;
+        //     int maxlenCurr = indexvec[indexvec.size()-1] - indexvec[0] - 1; 
+        //     currMaxSum = max(currMaxSum, maxlenCurr);
+        // }
+        // //currMaxSum will contain max subarray length with sum 0
+        
+        // return currMaxSum;
+    }
+};
+
+
+// { Driver Code Starts.
+
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        int m;
+        cin>>m;
+        vector<int> array1(m);
+        for (int i = 0; i < m; ++i){
+            cin>>array1[i];
+        }
+        Solution ob;
+        cout<<ob.maxLen(array1,m)<<endl;
+    }
+    return 0; 
+}
+
+
+  // } Driver Code Ends
