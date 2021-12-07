@@ -1,0 +1,53 @@
+//https://leetcode.com/problems/longest-consecutive-sequence/
+class Solution {
+public:
+    int longestConsecutive(vector<int>& nums) {
+     
+        if(nums.size() == 0) return 0;
+        if(nums.size()==1) return 1;
+        
+        int ns = nums.size();
+        
+        unordered_map<int,int> numsOccMp;
+        
+        for(int i = 0 ; i < nums.size(); i++) {
+            numsOccMp[nums[i]] = 1;
+        } //insert nums elements into a map
+        
+        int currcount = 0, gmc = 0;
+        
+        for(int i = 0 ; i < nums.size(); i++) {
+            
+            //iterate over every element in nums vector
+            //if that (element-1) found in map, do nothing
+            //if not found, find number of consecutive elements from element-1, keep currcount, gmc updated
+            //maintain currelement with which next element to compare
+            int currele;
+            if(numsOccMp.find(nums[i]-1) != numsOccMp.end()) {
+                //if element-1 found, move to next element in nums vector
+            } else {
+              //update currcount to 1;
+                currcount = 1;
+                gmc = max(gmc, currcount);
+                currele = nums[i];
+                bool flag = true;
+                while(flag)
+                {
+                    //iterate while finding number of consecutive elements from element-1;
+                    //if currele+1 found in map, update count, update gmc, update currele
+                    if(numsOccMp.find(currele+1) != numsOccMp.end()) {
+                        currele = currele+1;
+                        currcount++;
+                        gmc = max(gmc, currcount);
+                    } else {
+                        flag = false;
+                    }
+                }
+            }
+            
+        }
+        
+        return gmc;
+        
+    }
+};
