@@ -1,0 +1,47 @@
+class Solution {
+public:
+    vector<int> twoSum(vector<int>& nums, int target) {
+       // sort(nums.begin(), nums.end());
+        vector<int> res;
+        if(nums.size() == 0 || nums.size() == 1) return res;
+        
+        map<int, int> eleToEle;
+        int ele1 = INT_MIN, ele2 = INT_MIN;
+        for(int i = 0 ; i < nums.size(); i++) {
+            //if the value present in map, push index in res and break
+            
+            if(eleToEle.find(nums[i]) != eleToEle.end()) {
+                //ele found, store the elements that sum to target
+                ele1 = nums[i];
+                ele2 = target - ele1;
+            }
+            //else push i -> target - nums[i]
+            eleToEle[target-nums[i]] = nums[i];
+        }
+        
+        if(ele1 == INT_MIN && ele2 == INT_MIN) return res; // couple not found
+        
+        for(int i = 0 ; i < nums.size(); i++) {
+            if(nums[i] == ele1) res.push_back(i);
+            else if(nums[i] == ele2) res.push_back(i);
+        }
+        
+        
+        //only >1 size num vector here
+        // int low = 0, high = nums.size()-1;
+        // while(low < high) {
+        //     int selectedNumsSum = nums[low] + nums[high];
+        //     if(selectedNumsSum == target) {
+        //         res.push_back(low);
+        //         res.push_back(high);
+        //         break;
+        //     }
+        //     if(selectedNumsSum > target) {
+        //         high--;
+        //     } else low++;
+        // }
+        
+        return res;
+        
+    }
+};
