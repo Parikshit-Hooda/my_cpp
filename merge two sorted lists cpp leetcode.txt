@@ -1,0 +1,43 @@
+//https://leetcode.com/problems/merge-two-sorted-lists/
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        
+        if(l1==nullptr && l2==nullptr) return l1;
+        if(l1==nullptr && l2!=nullptr) return l2;
+        if(l1!=nullptr && l2==nullptr) return l1;
+        
+        //non-empty linked lists
+        ListNode *tail = new ListNode();
+        ListNode *head = tail;
+        
+        while(l1!=nullptr && l2!=nullptr) {
+            if(l1->val <= l2->val) {
+                tail->next = l1;
+                l1 = l1->next;
+                tail = tail->next;
+            } else {
+                tail->next = l2;
+                l2 = l2->next;
+                tail = tail->next;
+            }
+        }
+        
+        while(l1 != nullptr) {
+            tail->next = l1;
+            l1 = l1->next;
+            tail = tail->next;
+        }
+        while(l2 != nullptr) {
+            tail->next = l2;
+            l2 = l2->next;
+            tail = tail->next;
+        }
+        
+        
+        head = head->next;
+        return head;
+        
+        
+    }
+};
