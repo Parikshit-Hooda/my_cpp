@@ -1,0 +1,87 @@
+//https://leetcode.com/problems/merge-two-sorted-lists/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+        
+        
+        //if both lined list empty
+        if(l1==nullptr && l2==nullptr) return l1;
+        
+        if(l1!=nullptr && l2==nullptr) return l1;
+        if(l1==nullptr && l2!=nullptr) return l2;
+        
+        //both linked list non-empty
+        ListNode *l1next = l1->next, *l2next = l2->next;
+       // 
+        
+        //initialize the new head to return
+        ListNode *head, *tail;
+       // head = l1->val <= l2->val ? l1 : l2;
+        
+        //based on above init, move either l1 and l1next or l2 and l2next
+        if(l1->val <= l2->val) {
+            head = l1;
+            l1 = l1next;
+            if(l1next == nullptr)
+                l1next = nullptr;
+            else
+                l1next = l1next->next;
+        } else {
+            head = l2;
+            l2 = l2next;
+            if(l2next == nullptr)
+                l2next = nullptr;
+            else
+                l2next = l2next->next;
+        }
+        tail=head;
+        
+        //while l1 and l2 are not null, add element to next of head
+        while(l1!=nullptr && l2!=nullptr) {
+            if(l1->val <= l2->val) {
+                tail->next = l1;
+                tail = l1;
+                l1 = l1next;
+                if(l1next == nullptr)
+                    l1next = nullptr;
+                else
+                    l1next = l1next->next;
+            } else if(l2->val < l1->val){
+                tail->next = l2;
+                tail = l2;
+                l2 = l2next;
+                if(l2next == nullptr)
+                    l2next = nullptr;
+                else
+                    l2next = l2next->next;
+            }
+        }
+        
+        
+        //add all remaining nodes to tail for l1 and l2
+        while(l1 != nullptr && l2==nullptr) {
+            tail->next = l1;
+            tail = tail->next;
+            l1 = l1->next;
+            
+        }
+        while(l2 != nullptr && l1==nullptr) {
+            tail->next = l2;
+            tail = tail->next;
+            l2 = l2->next;
+            
+        }
+        
+        return head;
+    }
+};
