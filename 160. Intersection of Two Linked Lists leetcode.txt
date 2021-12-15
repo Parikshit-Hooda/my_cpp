@@ -1,0 +1,79 @@
+//https://leetcode.com/problems/intersection-of-two-linked-lists/
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode(int x) : val(x), next(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode *getIntersectionNode(ListNode *headA, ListNode *headB) {
+        ListNode *res;
+        if(headA == NULL || headB == NULL) {
+            res = NULL;
+            return res;
+        }
+        
+        //length of A
+        int cnta = 0;
+        ListNode *a = headA;
+        while(a != NULL) {
+            cnta += 1;
+            a = a -> next;
+        }
+        //length of B
+        int cntb = 0;
+        ListNode *b = headB;
+        while(b != NULL) {
+            cntb += 1;
+            b = b -> next;
+        }
+        
+        
+        //whichever is bigger, move a separate start point to head's index + diff(cnta,cntb);
+        a = headA;
+        b = headB;
+        if (cnta-cntb > 0) {
+            //A is bigger
+            int diff = cnta-cntb;
+            //move a diff positions forward
+            int i = 0;
+            while(i < diff) {
+                i++;
+                a = a->next;
+            }
+        } else {
+            //B is bigger or both are of same length
+            int diff = cntb-cnta;
+            //move b diff positions forward
+            int i = 0;
+            while(i < diff) {
+                i++;
+                b = b->next;
+            }
+        }
+        
+        //move a and b forward
+        bool notfound = true;
+        while(a != NULL && b != NULL) {
+            if(a==b) {
+                notfound = false;
+                break;
+            }
+            a = a->next;
+            b = b->next;
+        }
+    
+        if(!notfound) {
+            //found - return a
+            res = a;
+            return res;
+        }
+        
+        res = NULL;
+        return res;
+        
+    }
+};
