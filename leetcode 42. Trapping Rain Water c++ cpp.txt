@@ -5,7 +5,37 @@ public:
      
         if(h.size() < 2) return 0;
         
+        //         approach 2
+//         int lmax = 0, rmax = 0, res = 0, l = 0, r = h.size()-1;
+//         int hsize = h.size()-1;
+        
+//         while(l <= r) {
+//             if(h[l] <= h[r]) {
+//                 if(h[l]>=lmax) {
+//                     //can't store water
+//                     lmax = h[l];
+//                     l++;
+//                 } else {
+//                     res += lmax - h[l];
+//                     l++;
+//                 }
+//             } else {
+//                 if(h[r] >= rmax) {
+//                     rmax = h[r];
+//                     r--;
+//                 } else {
+//                     res += rmax-h[r];
+//                     r--;
+//                 }
+//             }
+            
+            
+//         } //while loop
+        
+//         return res;
+        
         //number of building more than 1
+        //approach 1
         vector<int> r(h.size(), 0);
         vector<int> l(h.size(), 0);
         
