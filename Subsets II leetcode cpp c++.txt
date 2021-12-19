@@ -1,0 +1,36 @@
+//https://leetcode.com/problems/subsets-ii/
+class Solution {
+public:
+    
+    void findSubsets(vector<int> &nums, int idx, vector<int> &currvec, vector<vector<int>> &res) {
+        //push currvec in res
+        //include each valid element from nums to make subsets of length x into currvec
+        //pop back from currvec
+        res.push_back(currvec);
+        
+        //start from idx to end
+        for(int i = idx; i < nums.size(); i++) {
+            if(i != idx && nums[i] == nums[i-1]) continue;
+            currvec.push_back(nums[i]);
+            findSubsets(nums, i+1, currvec, res);
+            currvec.pop_back();    
+        }
+        
+    }
+    
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) {
+        
+        vector<int> currvec;
+        vector<vector<int>> res;
+        sort(nums.begin(), nums.end());
+        if(nums.size() == 0) {
+            res.push_back(currvec);
+            return res;
+        }
+        
+        findSubsets(nums, 0, currvec, res);
+    
+        return res;
+        
+    }
+};
