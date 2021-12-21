@@ -1,0 +1,42 @@
+//https://practice.geeksforgeeks.org/problems/minimum-platforms-1587115620/1#
+class Solution{
+    public:
+    //Function to find the minimum number of platforms required at the
+    //railway station such that no train waits.
+    int findPlatform(int arr[], int dep[], int n)
+    {
+    	// Your code here
+    	if(n==0) return 0;
+    	if(n==1) return 1;
+    	sort(arr, arr+n);
+    	sort(dep, dep+n);
+    	
+    	int platforms=0, max_platforms=0;
+    	int arr_idx = 0, dep_idx = 0;
+    	
+    	
+    	while(arr_idx<n && dep_idx<n) {
+    	    if(arr_idx==0 && dep_idx==0) {
+    	        platforms = 1, max_platforms = 1;
+    	        arr_idx++;
+    	        continue;
+    	    }
+    	    if(arr[arr_idx] <= dep[dep_idx]) {
+    	        platforms++;
+    	        max_platforms = max(max_platforms, platforms);
+    	        arr_idx++;
+    	        continue;
+    	    } else {
+    	        platforms--;
+    	        max_platforms = max(max_platforms, platforms);
+    	        dep_idx++;
+    	        continue;
+    	    }
+    	    
+    	    
+    	}
+    	
+    	return max_platforms;
+    	
+    }
+};
