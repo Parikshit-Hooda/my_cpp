@@ -1,0 +1,44 @@
+//https://practice.geeksforgeeks.org/problems/fractional-knapsack-1587115620/1#
+class Solution
+{
+    public:
+    //Function to get the maximum total value in the knapsack.
+    static bool comp(const Item &f, const Item &s) {
+        double first = (double)f.value/(double)f.weight;
+        double second = (double)s.value/(double)s.weight;
+        if(first >= second) return true;
+        else return false;
+    }
+    
+    double fractionalKnapsack(int W, Item arr[], int n)
+    {
+        // Your code here
+        double total_value = 0.00;
+        if(W==0) return total_value;
+        if(n==0) return total_value;
+        
+        sort(arr, arr+n, comp); //sorted in descending order of value/weight
+        
+        double current_weight = W;
+        
+        for(int i = 0 ; i < n ; i++) {
+            Item current_item = arr[i];
+            if(current_weight == 0.00) break;
+            if(current_weight >= current_item.weight) {
+                total_value = total_value + (double)current_item.value;
+                current_weight = current_weight - (double)current_item.weight;
+            } else {
+                total_value = total_value + ((double)(current_item.value)/(double)(current_item.weight))*((double)current_weight);
+                current_weight = 0.00;
+            }
+            //if(cw == 0.00)
+            
+        }
+        
+        return total_value;
+        
+        
+    }
+    
+        
+};
