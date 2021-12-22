@@ -2,24 +2,24 @@
 class Solution {
 public:
     
-    void fc(const vector<int> &cd, int target, int i, vector<int> &cc, int cs, vector<vector<int>> &res) {
+    void find_combination(const vector<int> &candidates, int target, int i, vector<int> &curr_combination, int curr_sum, vector<vector<int>> &res) {
         //cc - current combination, cd - candidataes, i - index, cs - current sum
-        if(cs == target) {
-            res.push_back(cc);
+        if(curr_sum == target) {
+            res.push_back(curr_combination);
             return ;
         }
         
-        if(cs > target || i >= cd.size()) return;
+        if(curr_sum > target || i >= candidates.size()) return;
         
-        if (cs < target) {
+        if (curr_sum < target) {
             //put all elements one by one from cd in cc
-            for(int idx = i; idx < cd.size(); idx++) {
+            for(int idx = i; idx < candidates.size(); idx++) {
                 //put curr element in cc - current combination
-                cc.push_back(cd[idx]);
-                cs = cs + cd[idx];
-                fc(cd, target, idx, cc, cs, res);
-                cs = cs - cd[idx];
-                cc.pop_back();
+                curr_combination.push_back(candidates[idx]);
+                curr_sum = curr_sum + candidates[idx];
+                find_combination(candidates, target, idx, curr_combination, curr_sum, res);
+                curr_sum = curr_sum - candidates[idx];
+                curr_combination.pop_back();
             }
         }
         
@@ -33,10 +33,10 @@ public:
         if(candidates.size() == 0) return res;
         sort(candidates.begin(), candidates.end());
         //at least 2 candidates
-        vector<int> cc;
-        int i = 0, cs = 0;
+        vector<int> curr_combination;
+        int i = 0, curr_sum = 0;
         
-        fc(candidates, target, i, cc, cs, res);
+        find_combination(candidates, target, i, curr_combination, curr_sum, res);
             
         return res;
         
