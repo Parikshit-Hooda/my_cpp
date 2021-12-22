@@ -1,0 +1,44 @@
+//https://leetcode.com/problems/combination-sum/
+class Solution {
+public:
+    
+    void fc(const vector<int> &cd, int target, int i, vector<int> &cc, int cs, vector<vector<int>> &res) {
+        //cc - current combination, cd - candidataes, i - index, cs - current sum
+        if(cs == target) {
+            res.push_back(cc);
+            return ;
+        }
+        
+        if(cs > target || i >= cd.size()) return;
+        
+        if (cs < target) {
+            //put all elements one by one from cd in cc
+            for(int idx = i; idx < cd.size(); idx++) {
+                //put curr element in cc - current combination
+                cc.push_back(cd[idx]);
+                cs = cs + cd[idx];
+                fc(cd, target, idx, cc, cs, res);
+                cs = cs - cd[idx];
+                cc.pop_back();
+            }
+        }
+        
+        return ;
+        
+    } 
+    
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target) {
+        
+        vector<vector<int>> res;
+        if(candidates.size() == 0) return res;
+        sort(candidates.begin(), candidates.end());
+        //at least 2 candidates
+        vector<int> cc;
+        int i = 0, cs = 0;
+        
+        fc(candidates, target, i, cc, cs, res);
+            
+        return res;
+        
+    }
+};
