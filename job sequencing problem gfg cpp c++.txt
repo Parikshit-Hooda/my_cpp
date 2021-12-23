@@ -1,0 +1,105 @@
+//https://practice.geeksforgeeks.org/problems/job-sequencing-problem-1587115620/1#
+/*struct Job 
+{ 
+    int id;	 // Job Id 
+    int dead; // Deadline of job 
+    int profit; // Profit if job is over before or on deadline 
+};
+*/
+
+class Solution 
+{
+    public:
+    //Function to find the maximum profit and the number of jobs done.
+    static bool comp(const Job &a, const Job &b) {
+        if(a.profit >= b.profit) return true;
+        return false;
+    }
+    
+    vector<int> JobScheduling(Job arr[], int n) 
+    { 
+        // your code here
+        vector<int> res;
+        if(n==0) {
+            res.push_back(0);
+            res.push_back(0);
+            return res;
+        }
+        
+        sort(arr, arr + n, comp);
+        
+        int maxdead = 0;
+        for(int i = 0 ; i < n ; i++) {
+            maxdead = max(maxdead, arr[i].dead);
+        }
+        
+        vector<int> pda(maxdead+1, -1);
+        
+        int nj = 0, maxprofit = 0;
+        
+        for(int i = 0 ; i < n; i++) {
+            int maxdeadline = arr[i].dead;
+            
+            int curr = maxdeadline;
+            
+            while(curr > 0) {
+                if(pda[curr] == -1) {
+                    pda[curr] = arr[i].profit;
+                    nj++;
+                    maxprofit += pda[curr];
+                    break;
+                }
+                curr--;
+            }
+        }
+        
+        // for(int i = 0 ; i < pda.size() ; i++) {
+        //     cout << arr[i].profit << " ";
+        // }
+        
+       // cout << endl;
+        
+        // for(int i = 0 ; i < pda.size() ; i++) {
+        //     cout << pda[i] << " ";
+        // }
+        
+        res.push_back(nj);
+        res.push_back(maxprofit);
+        
+        
+        return res;
+    } 
+};
+
+/*
+class Solution 
+{
+   public:
+   //Function to find the maximum profit and the number of jobs done.
+   
+   static bool comp(Job a, Job b){
+       return a.profit > b.profit;
+   }
+   
+   vector<int> JobScheduling(Job arr[], int n) 
+   { 
+       // your code here
+       sort(arr,arr+n,comp);
+       int day=0,profit=0;
+       bool done[n] = {0};
+       
+       for(int i=0;i<n;i++){
+           for(int j=min(n,arr[i].dead-1);j>=0;j--){
+               if(done[j]==false){
+                   day+=1;
+                   profit+=arr[i].profit;
+                   done[j]=true;
+                   break;
+               }
+           }
+       }
+       
+       return {day,profit};
+   } 
+};
+*/
