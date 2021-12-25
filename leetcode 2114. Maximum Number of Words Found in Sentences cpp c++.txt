@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/maximum-number-of-words-found-in-sentences/
+class Solution {
+public:
+    int mostWordsFound(vector<string>& sentences) {
+        if(sentences.size() == 0) return 0;
+        
+        int cc, mc = INT_MIN;
+        
+        for(int i = 0 ; i < sentences.size(); i++) {
+            cc = 0;
+            string cs = sentences[i];
+            
+            for(int j = 0 ; j < cs.length(); j++) {
+                if(cs[j] == ' ') {
+                    cc++;
+                }
+            }
+            cc++;
+            mc = max(cc, mc);
+        }
+        return mc;
+    }
+};
