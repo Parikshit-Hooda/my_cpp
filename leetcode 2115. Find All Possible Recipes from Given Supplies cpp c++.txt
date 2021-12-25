@@ -1,0 +1,78 @@
+//https://leetcode.com/problems/find-all-possible-recipes-from-given-supplies/
+class Solution {
+public:
+    vector<string> findAllRecipes(vector<string>& recipes, vector<vector<string>>& ingredients, vector<string>& supplies) {
+        
+        vector<string> res;
+        map<string, vector<string>> mp;
+        
+        for(int i = 0 ; i < recipes.size(); i++) {
+            //for each recipe
+            
+            vector<string> cing = ingredients[i]; //required ingredients
+            
+            //find what ingredients are not in supplies
+            vector<string> ming;
+            
+            for(int j = 0 ; j < cing.size(); j++) {
+                vector<string>::iterator it = find(supplies.begin(), supplies.end(), cing[j]);               
+                if(it == supplies.end()) ming.push_back(cing[j]);           
+            }
+            
+            if(ming.size() == 0) {
+                res.push_back(recipes[i]);
+                continue;
+            } else {
+                mp[recipes[i]] = ming;
+                
+            }
+ 
+        } //i-loop
+        
+        //mp contains recipe->missing ingredients
+        int flag = 1;
+        
+        //iterate while flag == 1
+        while(flag) {
+            //select first element from mp
+            //if can make mp[key]'s missing ingredients, flag = 1, remove element from mp
+            int crs = res.size();
+            map<string, vector<string>>::iterator itr;
+            for(itr = mp.begin(); itr != mp.end(); itr++) {
+                string crec = itr->first;
+                vector<string> cming = itr->second;
+                
+                //if can find cming in res and ing, great
+                int count = 0;
+                
+                //if can find all cming in res and 
+                for(int k = 0 ; k < cming.size(); k++) {
+                    vector<string>::iterator itr1 = find(res.begin(), res.end(), cming[k]);
+                    if(itr1 == res.end()) break;
+                    else count++;
+                }
+                
+                 
+                if(count == cming.size()) {
+                    //all found
+                    res.push_back(crec);
+                    mp.erase(crec);
+                }
+                
+                } //itr - loop
+               
+               if(mp.size() == 0) flag = 0;
+            
+            if(crs == res.size()) {
+                break;
+            }  
+            }
+            
+               return res; 
+            
+        }
+        
+    
+        
+    
+};
