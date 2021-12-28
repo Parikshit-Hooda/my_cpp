@@ -1,0 +1,71 @@
+//https://codeforces.com/contest/1623/problem/A
+#include <bits/stdc++.h>
+using namespace std;
+
+int fn(int n, int m, int rb, int cb, int rd, int cd) {
+	int rr, rc;
+	int count = 0;
+	int rstep = 1, cstep = 1;
+	int flag = 0;
+	while(!flag) {
+		if(rb == rd || cb == cd) {
+			break;
+		}	
+		count++;
+		
+		if(rstep > 0) {
+			if(rb == n) rstep *= -1;
+		}
+		if(rstep < 0) {
+			if(rb == 0) rstep *= -1;
+		}
+		if(cstep > 0) {
+			if(cb == m) cstep *= -1;
+		}
+		if(cstep < 0) {
+			if(cb == 0) cstep *= -1;
+		}
+		
+		// if(rb == 1 || rb == n) {
+		// 	rstep *= -1;
+		// }
+		// if(cb == 1 || cb == m) {
+		// 	cstep *= -1;
+		// }
+		// if(rb == n) {
+		// 	rstep = -1;
+			
+		// }
+		// if(rb == 0) {
+		// 	rstep = 1;
+		// }
+		// if(cb == 0) {
+		// 	cstep = 1;
+		// }
+		// if (cd == m) {
+		// 	cstep = -1;
+		// }
+		
+		rb = rb + rstep;
+		cb = cb + cstep;
+
+	} // while 
+	return count;
+	
+}
+
+int main() {
+	// your code goes here
+	
+	int n,m,rb,cb,rd,cd;
+	
+	int t;
+	cin >> t;
+	while(t--) {
+		cin >> n >> m >> rb >> cb >> rd >> cd;
+		int res = fn(n,m,rb,cb,rd,cd);
+		cout << res << endl;
+	}
+ 	
+	return 0;
+}
