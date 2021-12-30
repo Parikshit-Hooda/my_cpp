@@ -1,0 +1,45 @@
+//https://www.interviewbit.com/problems/allocate-books/
+bool allocPossible(vector<int> &a, int barrier, int s) {
+    //see if allocation possible
+    int allocCount = 0, pages = 0;
+    for(int i = 0; i < a.size(); i++) {
+        if(pages + a[i] > barrier) {
+            allocCount++;
+            pages = a[i];
+            if(pages > barrier) return false;
+        } else {
+            pages += a[i];
+        }
+    }
+
+    if(allocCount < s) return true;
+    return false;
+
+}
+
+int Solution::books(vector<int> &A, int B) {
+    if(B > A.size()) return -1; 
+    int minpages = INT_MAX, maxpages;
+    maxpages = 0;
+    for(int i = 0 ; i < A.size();i++) {
+        minpages = min(minpages, A[i]);
+        maxpages += A[i];
+    }
+
+    int maxAllocation = -1;
+    int low = minpages, high = maxpages;
+
+    while(low <= high) {
+        int mid = (low+high) >> 1;
+        if(allocPossible(A, mid, B)) {
+            maxAllocation = mid;
+            high = mid-1;
+        } else {
+            low = mid+1;
+        }
+    }
+
+    return maxAllocation;
+
+
+}
