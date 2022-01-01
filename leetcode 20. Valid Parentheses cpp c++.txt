@@ -1,0 +1,39 @@
+//https://leetcode.com/problems/valid-parentheses/
+class Solution {
+public:
+    bool isValid(string s) {
+        if(s.size()==0) return true;
+        if(s.size() == 1) return false;
+        
+        stack<char> stk;
+        //bool flag = true;
+        
+        int idx = 0;
+        for(idx; idx < s.length(); idx++) {
+            cout << idx << endl;
+            if(s[idx] == '(' || s[idx] == '{' || s[idx] == '[') {
+                stk.push(s[idx]);
+                
+            } else {
+               if(stk.empty()) return false;
+                
+                if(s[idx] == ')'){
+                    if(stk.top() == '(') {stk.pop(); continue;}
+                    else return false;
+                }
+               if(s[idx] == '}'){
+                    if(stk.top() == '{') {stk.pop(); continue;}
+                    else return false;
+                }
+                if(s[idx] == ']'){
+                    if(stk.top() == '[') {stk.pop(); continue;}
+                    else return false;
+                }
+                
+            }
+        }
+       // cout << stk.size() << endl;
+      //  cout << stk.top();
+        return stk.empty();
+    }
+};
