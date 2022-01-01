@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/implement-stack-using-queues/
+class MyStack {
+   // int pf,pr,sf,sr;
+   // int maxsize=100;
+public:
+    queue<int> pri, sec;
+    MyStack() {
+        
+    }
+    
+    void push(int x) {
+       sec.push(x);
+        //move all elements from pri to sec
+        while(!pri.empty()) {
+            sec.push(pri.front());
+            pri.pop();
+        }
+        //push all from sec to pri
+        while(!sec.empty()) {
+            pri.push(sec.front());
+            sec.pop();
+        }
+        return ;
+    }
+    
+    int pop() {
+       if(!pri.empty()) {
+           int popele = pri.front();
+           pri.pop();
+           return popele;
+       } 
+        return -1; 
+    }
+    
+    int top() {
+        if(!pri.empty()) {
+            int popele = pri.front();
+           // pri.pop();
+            return popele;
+        }
+        return -1;
+        
+    }
+    
+    bool empty() {
+        if(pri.empty()) return true;
+        return false;
+    }
+};
+
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
