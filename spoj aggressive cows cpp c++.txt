@@ -1,0 +1,52 @@
+//https://www.spoj.com/problems/AGGRCOW/
+#include <bits/stdc++.h>
+using namespace std;
+
+bool canPlace(int dist, const vector<int> &v, int c) {
+	int coord = v[0], cnt = 1;
+	for(int i = 1; i < v.size(); i++) {
+		//if can place valid
+		if(v[i]-coord >= dist) {
+			cnt++;
+			coord = v[i];
+		}
+		if(cnt == c) return true;
+		
+	}
+	return false;
+}
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--) {
+		int n, c;
+		cin >> n >> c;
+		vector<int> v(n);
+		for(int i = 0 ; i < n; i++) {
+			int curr;
+			cin >> curr;
+			v[i] = curr;
+		} // got stalls location in v vector
+		sort(v.begin(), v.end());
+		
+		int low = v[0];
+		int high = v[n-1] - v[0];
+		int res = INT_MIN;
+		
+		while(low <= high) {
+			int mid = (low + high) >> 1;
+			//check if placement possible
+			if(canPlace(mid, v, c)) {
+				res = mid ; low = mid+1;
+			} else {
+				high = mid-1;
+			}
+		}
+			
+		cout << res << endl;
+		
+	}
+	return 0;
+}
