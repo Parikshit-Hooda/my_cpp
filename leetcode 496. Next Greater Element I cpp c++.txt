@@ -1,0 +1,61 @@
+//https://leetcode.com/problems/next-greater-element-i/
+class Solution {
+public:
+    
+    vector<int> nge(vector<int> &nums1) {
+    //write your code here
+
+        vector<int> res;
+        if(nums1.size() == 0) return res;
+
+        for(int i = 0 ; i < nums1.size(); i++) {
+            res.push_back(0);
+        }
+        stack<int> stk;
+        res[res.size()-1] = -1;
+
+        int n1size = nums1.size();
+        stk.push(nums1[n1size-1]); //push last elements of nums2 to stk
+
+
+        for(int i = n1size-2; i >= 0; i--) {
+            //step 1. pop as many elements from stk as possible
+            int curr = nums1[i];
+            while(!stk.empty() && stk.top() < curr) stk.pop();
+
+            //if stk is empty, do something 
+            if(stk.empty()) res[i] = -1;
+            else res[i] = stk.top();
+            
+            stk.push(nums1[i]);
+
+        }
+
+        //cout << res.size();
+        return res;
+
+
+    }
+    
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        
+        vector<int> res;
+        if(nums1.size() == 0) return res;
+
+        res = nge(nums2);
+
+        map<int,int> numToResMp;
+        
+        for(auto i = 0; i < res.size(); i++) {
+            numToResMp[nums2[i]] = res[i];
+        }
+        
+        vector<int> fres(nums1.size(), -1);
+        for(int i = 0 ; i < nums1.size(); i++) {
+            fres[i] = numToResMp[nums1[i]];
+        }
+        
+        return fres;
+
+    }
+};
