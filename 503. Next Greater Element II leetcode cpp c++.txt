@@ -1,0 +1,56 @@
+//https://leetcode.com/problems/next-greater-element-ii/
+class Solution {
+public:
+    
+        
+    vector<int> nge(vector<int> &nums1) {
+    //write your code here
+
+        vector<int> res;
+        if(nums1.size() == 0) return res;
+        
+        vector<int> nums = nums1;
+        for(int i = 0 ; i < nums1.size(); i++) nums.push_back(nums1[i]);
+
+        for(int i = 0 ; i < nums.size(); i++) {
+            res.push_back(0);
+        }
+        stack<int> stk;
+        res[res.size()-1] = -1;
+
+        int nsize = nums.size();
+        stk.push(nums[nsize-1]); //push last elements of nums2 to stk
+
+
+        for(int i = nsize-2; i >= 0; i--) {
+            //step 1. pop as many elements from stk as possible
+            int curr = nums[i];
+            while(!stk.empty() && stk.top() <= curr) stk.pop();
+
+            //if stk is empty, do something 
+            if(stk.empty()) res[i] = -1;
+            else res[i] = stk.top();
+            
+            stk.push(nums[i]);
+
+        }
+
+        for(auto i : nums) cout << i << " ";
+        cout << endl;
+        for(auto i : res) cout << i << " ";
+        //cout << res.size();
+        return res;
+
+
+    }
+    
+    vector<int> nextGreaterElements(vector<int>& nums) {
+        vector<int> tempres = nge(nums), res;
+        
+        for(int i = 0 ; i < nums.size(); i++) {
+            res.push_back(tempres[i]);
+        }
+        
+        return res;
+    }
+};
