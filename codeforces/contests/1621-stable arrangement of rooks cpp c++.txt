@@ -1,0 +1,51 @@
+//https://codeforces.com/contest/1621/problem/A
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int t;
+	cin >> t;
+	while(t--) {
+		int n, k;
+		cin >> n >> k;
+		vector<vector<char>> res(n, vector<char> (n,'.'));
+		if(k==1 && n == 1) {
+			cout <<"R" << endl; continue;
+		}
+		if(k >= n) {
+			cout << "-1 \n";
+			continue;
+		}
+		
+		//k < n
+		int maxrooks = floor(n/2);
+		if(n%2 == 1) maxrooks += 1;
+		
+		//if not possible
+		if(k > maxrooks) {
+			cout << "-1 \n";
+			continue;
+		}
+		//valid, print result
+		int count = 0;
+		int rowsize = res.size(), colsize = res.size();
+		for(int i = 0 ; i < rowsize; i++) {
+			for(int j = 0 ; j < colsize; j++) {
+				//place at 0,0 2,2 4,4
+				if(i==j && i%2==0) {
+					res[i][j] = 'R'; count++;
+				}
+				if(count == k) break;
+			}
+		}
+		
+		for(int i = 0 ; i < rowsize; i++) {
+			for(int j = 0 ; j < colsize; j++) {
+				cout << res[i][j];
+			}
+			cout << endl;
+		}
+	}
+	return 0;
+}
