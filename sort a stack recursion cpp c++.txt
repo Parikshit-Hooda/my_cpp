@@ -1,0 +1,57 @@
+//https://www.geeksforgeeks.org/sort-a-stack-using-recursion/
+#include <bits/stdc++.h>
+using namespace std;
+
+void sortInsert(stack<int> &s, int curr)
+{
+    // base case: if the stack is empty or
+    // the key is greater than all elements in the stack
+    if (s.empty() || curr > s.top())
+    {
+        s.push(curr);
+        return;
+    }
+ 
+    /* We reach here when the key is smaller than the top element */
+ 
+    // remove the top element
+    int temptop = s.top();
+    s.pop();
+ 
+    // recur for the remaining elements in the stack
+    sortInsert(s, curr);
+ 
+    // insert the popped element back into the stack
+    s.push(temptop);
+}
+
+void ss(stack<int> &s) {
+	if(s.empty()) {
+		return ;
+	}
+	
+	int curr = s.top();
+	s.pop();
+	ss(s);
+	sortInsert(s, curr);
+	//return ;
+}
+
+int main() {
+	// your code goes here
+	stack<int> s;
+	s.push(-3);
+	s.push(14);
+	s.push(18);
+	s.push(30);
+	s.push(-5);
+	
+	ss(s);
+	
+	while(!s.empty()) {
+		cout << s.top() << " ";
+		s.pop();
+	}
+	
+	return 0;
+}
