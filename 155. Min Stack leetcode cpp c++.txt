@@ -1,0 +1,47 @@
+//https://leetcode.com/problems/min-stack/
+class MinStack {
+    stack<int> stk;
+    vector<int> minarr = vector<int>(30000) ;
+public:
+    MinStack() {
+        
+    }
+    
+    void push(int val) {
+        int curr = val;
+        (this->stk).push(curr);
+        int stksize = stk.size();
+        
+        if(stk.size() == 1) {
+            minarr[0] = curr; return ;
+        } else {
+            minarr[stksize-1] = min(minarr[stksize-2]/*newly pushed*/, curr);
+        }
+        return ;
+    }
+    
+    void pop() {
+        if ((this->stk).empty()) return ;
+        (this->stk).pop();
+        return ;
+    }
+    
+    int top() {
+        return (this->stk).top();
+    }
+    
+    int getMin() {
+        int stksize = (this->stk).size();
+        int res = (this->minarr)[stksize-1];
+        return res;  
+    }
+};
+
+/**
+ * Your MinStack object will be instantiated and called as such:
+ * MinStack* obj = new MinStack();
+ * obj->push(val);
+ * obj->pop();
+ * int param_3 = obj->top();
+ * int param_4 = obj->getMin();
+ */
