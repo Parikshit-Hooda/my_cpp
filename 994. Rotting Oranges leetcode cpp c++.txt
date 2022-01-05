@@ -1,0 +1,90 @@
+//https://leetcode.com/problems/rotting-oranges/
+class Solution {
+public:
+    int orangesRotting(vector<vector<int>>& grid) {
+       int res = 0;
+        if(grid.size() == 0) return res;
+        int m = grid.size(), n = grid[0].size();
+        //three-nested loop
+        while(1) {
+            int flag = 1;
+            vector<pair<int, int>> v;
+            for(int i = 0 ; i < m; i++) {
+                for(int j = 0; j < n; j++) {
+                    if(grid[i][j] == 2)
+                        v.push_back(make_pair(i,j));
+                }
+            } // recorded coordinates here of rotten oranges
+            
+            //for every element in v, propagate rotten trait. if not able to propagate, mark and break
+           // cout << v[0].first << " " << v[0].second << "ip" << endl ;
+            //check for valid propagation too
+            vector<pair<int, int>>::iterator vitr = v.begin();
+            for(vitr; vitr != v.end(); vitr++) {
+                //for every pair...
+                //if propagation possible, propagate
+                int crow = vitr->first, ccol = vitr->second;
+                //check 4 directions
+                int left, right, up, down;
+                if(ccol <= 0) left = -1;
+                else left = ccol-1;
+                if(ccol >= n-1) right = -1;
+                else right = ccol+1;
+                if(crow <= 0) up = -1;
+                else up = crow-1;
+                if(crow >= m-1) down = -1;
+                else down = crow+1;
+                
+                //find all 4 coordinates, if propagation possible, propagate. also, change flag to 0
+                //for left
+                if(left >= 0) {
+                    if(grid[crow][left] == 1) {
+                        grid[crow][left] = 2; if(flag == 1) flag = 0;
+                    }
+                }
+                if(right >= 0) {
+                    if(grid[crow][right] == 1) {
+                        grid[crow][right] = 2; if(flag == 1) flag = 0;
+                    }
+                }
+                if(up >= 0) {
+                    if(grid[up][ccol] == 1) {
+                        grid[up][ccol] = 2; if(flag == 1) flag = 0;
+                    }
+                }
+                if(down >= 0) {
+                    if(grid[down][ccol] == 1) {
+                        grid[down][ccol] = 2; if(flag == 1) flag = 0;
+                    }
+                }
+                
+                
+                
+            } //vitr
+          
+        //if flag is 0, means we did atleast one propagation.
+                if(flag == 1) break;
+                else {
+                    flag = 1;
+                    res++;
+                }
+            
+//             for(int i = 0 ; i < m; i++) {
+//                 for(int j = 0; j < n; j++) {
+//                     cout << grid[i][j] <<" ";
+//                 } cout << endl;
+//             }
+            
+            
+        } //while
+        
+      for(int i = 0 ; i < m; i++) {
+                for(int j = 0; j < n; j++) {
+                    if(grid[i][j] == 1)
+                    { res = -1; break;}
+                }
+            }  
+        
+      return res;  
+    }
+};
