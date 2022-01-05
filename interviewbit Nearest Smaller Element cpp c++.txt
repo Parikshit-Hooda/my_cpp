@@ -1,0 +1,46 @@
+//https://www.interviewbit.com/problems/nearest-smaller-element/
+#include <bits/stdc++.h>
+using namespace std;
+
+vector<int> prevSmaller(vector<int> &a) {
+
+    vector<int> res;
+    if(a.size() == 0) return res;
+
+    stack<int> s;
+    int asize = a.size();
+    for(int i = 0 ; i < asize; i++) res.push_back(-1);
+    //here res contains all -1s
+    s.push(a[0]);
+    int rsize = res.size();
+    for(int i = 1; i < rsize; i++) {
+        int curr = a[i];
+
+        //pop while stack is not empty or stack top is greater than curr
+        while(!s.empty() && s.top() >= curr) s.pop();
+
+        //if stack is empty, res[i] = -1. else, res[i] = stack top
+        if(s.empty()) res[i] = -1;
+        else res[i] = s.top();
+
+        s.push(curr);
+    }
+
+    return res;
+}
+
+
+
+int main() {
+	// your code goes here
+	
+	vector<int> a{8, 39, 27, 11, 4, 24, 32, 32, 1};
+	// vector<int> a{4, 5, 2, 10, 8};	
+	vector<int> res = prevSmaller(a);
+	
+	for(auto i : res) cout << i << " ";
+	
+	return 0;
+}
+
+///39, 27, 11, 4, 24, 32, 32, 1
