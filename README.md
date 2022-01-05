@@ -1,2 +1,2 @@
 # my_cpp
-my cpp codes.
+Repository containing my CPP/C++ code.
