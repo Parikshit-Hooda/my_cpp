@@ -1,0 +1,58 @@
+//https://leetcode.com/problems/sliding-window-maximum/
+class Solution {
+public:
+    
+    vector<int> nge(const vector<int> &a) {
+	
+	if(a.size() == 0) { vector<int> res; return res; }
+		int asize = a.size();
+
+	vector<int> res(a.size(), asize);
+	stack<int> s;
+	s.push(asize-1);
+	
+	for(int i = asize-2; i >= 0; i--) {
+		//-a+
+	//	int curr = a[i];
+		while(!s.empty() && a[s.top()] < a[i]) s.pop();
+		
+		//if stack s is empty, else...
+		if(s.empty()) {
+			res[i] = asize;
+			//s.push(i)
+		} else {
+			res[i] = s.top();
+		}
+
+		s.push(i);
+	}
+
+	return res;	
+}
+
+    
+    vector<int> maxSlidingWindow(vector<int>& a, int k) {
+        
+        
+        if(a.size() == 0) {vector<int> res; return res;}
+        
+	vector<int> ngearr = nge(a); //ngearr contains next greater element's 
+	//index for every i in 0 to a.size()-1
+     
+    int i = 0, j = 0;
+	vector<int> res;
+        int ngearrsize = ngearr.size();
+    
+	for(i; i <= ngearrsize-k; i++) {
+		//cover elements from i to i+k-1
+		if(j < i) j = i;
+		while(ngearr[j] < i+k) {
+			j = ngearr[j];
+		}
+		res.push_back(a[j]);
+	}
+
+        return res;
+        
+    }
+};
