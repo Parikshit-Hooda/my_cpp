@@ -1,0 +1,40 @@
+//https://leetcode.com/problems/longest-palindromic-substring/
+class Solution {
+public:
+    string longestPalindrome(string s) {
+        string res;
+        if(s.size() == 0) return res;
+        
+        
+        int gmax = 1;
+        res = s[0];
+        int i = 1;
+        int ss = s.size();
+        for(i; i < ss; i++) {
+            //from s[i], expand palindrome in both directions
+            //from idx 1, odd length palindrome, idx 1 - even length palindrome
+            //first, make as i is centre
+            int left = i-1, right = i+1;
+            while((left >= 0 && right < ss) && s[left] == s[right] ) {
+                left--, right++;
+            }
+            int currlen = (right-left) - 1;
+            if(currlen > gmax) {
+                res = s.substr(left+1, currlen);
+            }
+            gmax = max(gmax, currlen);
+            //second. make as i is centre in even length substring
+            left = i-1, right = i;
+            while((left >= 0 && right < ss) && s[left] == s[right] ) {
+                left--, right++;
+            }
+            currlen = (right-left) - 1;
+            if(currlen > gmax) {
+                res = s.substr(left+1, currlen);
+            }
+            gmax = max(gmax, currlen);
+        }
+        
+        return res;
+    }
+};
