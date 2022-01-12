@@ -1,0 +1,23 @@
+//https://leetcode.com/problems/palindrome-number/
+class Solution {
+public:
+    bool isPalindrome(int x) {
+        
+        if(x < 0) return false;
+        
+        long long int p = 0;
+        
+        long long int temp = x;
+        
+        while(temp > 0) {
+            long long int rem = temp%10;
+            p *= 10; p += rem;
+            temp /= 10;
+        }
+        
+        cout << p << endl;
+        if(p == x) return true;
+        return false;
+        
+    }
+};
