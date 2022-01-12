@@ -1,0 +1,39 @@
+//https://leetcode.com/problems/string-to-integer-atoi/
+class Solution {
+public:
+    int myAtoi(string s) {
+long long int res = 0;     
+if(s.size() == 0) return res;
+int idx = 0;
+
+
+
+//skip spaces
+while(s[idx] == ' ') idx++;
+
+int signFlag = 1;
+//check for +,-
+if(s[idx] == '-') {
+	signFlag = -1; }
+if(s[idx] == '-' || s[idx] == '+') idx++;
+
+//read numeric characters
+while(s[idx] >= '0' && s[idx] <= '9') {
+//update res
+int numEqui = s[idx] - '0';
+res *= 10; res += numEqui;
+idx++;
+if(res >= INT_MAX) { break;}
+}
+        cout << "res " << res << endl;
+        int finres;
+res *= signFlag;
+    
+        if(res <= INT_MIN) finres = INT_MIN;
+        else if(res >= INT_MAX) finres = INT_MAX;
+        else finres = (int) res;
+        
+
+return finres;
+    }
+};
