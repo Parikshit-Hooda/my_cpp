@@ -1,0 +1,22 @@
+//https://leetcode.com/problems/search-insert-position/
+class Solution {
+public:
+    int searchInsert(vector<int>& nums, int target) {
+        
+        
+        if(nums.size() == 0) return 0;
+        int ridx = INT_MIN;
+        
+        //write bin search function
+        int s = 0, e = nums.size()-1;
+        while(s <= e) {
+            int mid = (s + e) >> 1;
+            if(nums[mid] == target) {ridx = mid; break;}
+            if(nums[mid] < target) s = mid+1;
+            else e = mid-1;
+        }
+        if(ridx != INT_MIN) return ridx;
+        else return e+1;
+        
+    }
+};
