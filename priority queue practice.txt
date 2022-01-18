@@ -1,0 +1,34 @@
+#include <iostream>
+#include <queue>
+using namespace std;
+
+void showpq(priority_queue<int, vector<int>, greater<int>> &pq) {
+	//auto pq_itr = pq.begin();
+	while(!pq.empty()) {
+		cout << pq.top() << " ";
+		pq.pop();
+	}
+	cout << "\n";
+	return ;
+}
+
+int main() {
+	// your code goes here
+	priority_queue<int, vector<int>, greater<int>> pq; //min-heap
+	pq.push(3);
+	pq.push(7);
+	pq.push(10);
+	pq.push(15);
+	
+	showpq(pq);
+	pq.pop();
+	showpq(pq);
+	
+	priority_queue<int> maxheap_pq;
+	maxheap_pq.push(1);
+	maxheap_pq.push(2);
+	maxheap_pq.push(6);
+	maxheap_pq.swap(pq); //throws error: can't use swap to exchange minheap pqueue with maxheap pqueue
+	
+	return 0;
+}
