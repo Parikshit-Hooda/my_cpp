@@ -1,0 +1,39 @@
+//https://leetcode.com/problems/k-closest-points-to-origin/
+class Solution {
+public:
+    
+    struct mycompare
+    {
+        bool operator()(const vector<int> &f, const vector<int> &s) {
+        
+            long long fdist = 0, sdist = 0;
+            fdist = (f[0]*f[0] - 0) + (f[1]*f[1] - 0);
+            sdist = (s[0]*s[0] - 0) + (s[1]*s[1] - 0);
+            return fdist <= sdist;
+        }
+    };
+    
+    vector<vector<int>> kClosest(vector<vector<int>>& points, int k) {
+        
+        if(points.size() <= k) {
+            vector<vector<int>> res = points;
+            return res;
+        }
+        vector<vector<int>> res;
+        priority_queue<vector<int>, vector<vector<int>>, mycompare> maxheap;
+        
+        for(int i = 0 ; i < points.size(); i++) {
+            maxheap.push(points[i]);
+            if(maxheap.size() > k) maxheap.pop();
+        }
+        
+        //push each element in max heap to res
+        while(!maxheap.empty()) {
+            res.push_back(maxheap.top());
+            maxheap.pop();
+        }
+        
+        return res;
+        
+    }
+};
