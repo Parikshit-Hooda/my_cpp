@@ -1,0 +1,53 @@
+//https://leetcode.com/problems/count-the-hidden-sequences/
+class Solution {
+public:
+    int numberOfArrays(vector<int>& differences, int l, int u) {
+       //max O(nlogn)
+           int res = 0;
+       int dlen =  differences.size();
+        if(dlen == 0) return res;
+
+        vector<int> hidden;
+        long curr = l;
+        //hidden.push_back(curr);
+        
+        //go through differences array, make lowest possible
+        long minele = LONG_MAX;
+        long maxele = LONG_MIN;
+        minele  = min(curr, minele);
+        maxele = max(curr, maxele);
+        for(int i = 0 ; i < dlen; i++) {
+            curr = curr + differences[i];
+            minele = min(curr, minele);
+            maxele = max(curr, maxele);
+            //hidden.push_back(curr);
+        } //calc minele and maxele
+        
+        //if minele and maxele are in range [l,u]
+        if(minele >= l && maxele <= u) {
+            cout <<"exec bounds0" << endl;
+            res = (int)(u-maxele + 1);
+            return res;
+        }
+        if(minele < l) {
+            //one by one increase minele and maxele till one of them go invalid
+            
+            //optimize this
+            maxele += l-minele;
+            
+            // while(minele < l) {
+            //     ++minele; ++maxele;
+            // } 
+        } //if minele
+        
+        //find maxele and see how much can it be increased
+        if(maxele > u) return 0;
+        else {
+            res = (int)(u-maxele+1);
+            return res;
+        }
+        
+        return res;
+        
+    }
+};
