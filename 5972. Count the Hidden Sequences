@@ -1,0 +1,32 @@
+//https://leetcode.com/contest/biweekly-contest-70/problems/minimum-cost-of-buying-candies-with-discount/
+class Solution {
+public:
+    int minimumCost(vector<int>& cost) {
+        
+        int csize = cost.size();
+        if(csize == 0) return 0;
+        if(csize == 1) return cost[0];
+        sort(cost.begin(), cost.end());
+        int res = 0;
+        for(int i = csize-1; i >= 0; i--) {
+            int currcost = 0;
+            //buy i and i-1 candy
+            if(i == 0) {
+                currcost = cost[0];
+                i = -1;
+            } else if(i==1) {
+                   currcost = cost[i] + cost[i-1];
+                    i-=2;     
+            } else {
+                currcost = cost[i] + cost[i-1];
+                i-=2;
+            }
+            res += currcost;
+            
+            
+        }
+        
+        return res;
+        
+    }
+};
