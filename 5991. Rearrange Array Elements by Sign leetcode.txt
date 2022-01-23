@@ -1,0 +1,30 @@
+//https://leetcode.com/contest/weekly-contest-277/problems/rearrange-array-elements-by-sign/
+class Solution {
+public:
+    vector<int> rearrangeArray(vector<int>& nums) {
+        
+        //easy one
+        vector<int> pos, neg;
+        int nsize = nums.size();
+        for(int i = 0 ; i < nsize ; i++) {
+            if(nums[i] >= 0) pos.push_back(nums[i]);
+            else neg.push_back(nums[i]);
+        }
+        int pi = 0, ni = 0;
+        //iterate again over nums to edit
+        for(int i = 0 ; i < nsize; i++) {
+            //if i is even, do something
+            if(i%2 == 0) {
+               nums[i] = pos[pi++];  
+            }
+            //if i is odd, do something
+            else {
+                nums[i] = neg[ni++];
+            }
+        }
+        
+        return nums;
+        
+        
+    }
+};
