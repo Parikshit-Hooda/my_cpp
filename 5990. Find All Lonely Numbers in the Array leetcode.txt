@@ -1,0 +1,26 @@
+https://leetcode.com/contest/weekly-contest-277/problems/find-all-lonely-numbers-in-the-array/
+
+class Solution {
+public:
+    vector<int> findLonely(vector<int>& nums) {
+       vector<int> res;
+        if(nums.size() == 0) return res;
+        
+        int nsize = nums.size();
+        
+        map<int, int> mp;
+        
+        for(auto ele : nums) mp[ele]++;
+        
+        //loop over nums vector. for every element, if ele-1 and ele+1 are not found in map, add to res
+        for(auto ele : nums) {
+            int currans = 0;
+            if(mp.find(ele-1) == mp.end()) currans++;
+            if(mp.find(ele+1) == mp.end()) currans++;
+            if(mp.find(ele) != mp.end() && (mp[ele] == 1)) currans++;
+            if(currans == 3) res.push_back(ele);
+        }
+        
+        return res;
+    }
+};
