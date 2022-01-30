@@ -1,0 +1,56 @@
+//https://leetcode.com/contest/weekly-contest-278/problems/all-divisions-with-the-highest-score-of-a-binary-array/
+class Solution {
+public:
+    vector<int> maxScoreIndices(vector<int>& nums) {
+       
+        vector<int> res ;
+       int n = nums.size();
+
+        if(n == 0) return res;
+        
+        vector<int> p(n+1,0), s(n+1,0);
+        p[0] = 0;
+        for(int i = 1; i <= n; i++) {
+            if(nums[i-1] == 0) {
+                int temp = p[i-1];
+                p[i] = temp+1;
+            } else {
+                p[i] = p[i-1];
+            }
+            //for each index of partition calc prefix 0
+        }
+        
+        
+        s[n] = 0;
+        for(int i = n-1; i >= 0; i--) {
+            int si1 = s[i+1];
+            if(nums[i] == 0) {
+                s[i] = si1;
+            } else {
+                s[i] = si1 + 1;
+            }  
+            
+        }        
+        
+//         for(auto i : p) cout << i << " ";
+//         cout << endl;
+//         for(auto i : s) cout << i <<" ";
+//         cout << endl;
+        
+        int gmax = INT_MIN;
+        //iterate for each idx in p
+        for(int i = 0; i < p.size(); i++) {
+            int sum = p[i] + s[i];
+            if(sum > gmax) {
+                res.clear();
+                res.push_back(i);
+                gmax = sum;
+            }
+            else if(sum == gmax) {
+                res.push_back(i);
+            }            
+        }
+        
+        return res;
+    }
+};
