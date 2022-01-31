@@ -1,0 +1,55 @@
+/** https://leetcode.com/problems/rotate-list/
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    
+    void rotateLL(ListNode* &head) {
+        //find last and secondlast
+        ListNode *newhead = head;
+        ListNode *newlast = new ListNode(0);
+        newlast->next = head;
+        while(newhead->next != nullptr) {
+        
+            newhead = newhead->next, newlast = newlast->next;
+        } 
+        
+        //newhead at last, newlast at second last of original ll
+        newhead->next = head;
+        head = newhead;
+        newlast->next = nullptr;
+        
+        
+        
+    }
+    
+    ListNode* rotateRight(ListNode* head, int k) {
+     
+        int count = 0;
+        
+        if(head == nullptr || head->next == nullptr) return head;
+        
+        //find effective rotation count
+        ListNode *curr = head;
+        count = 1;
+        while(curr->next != nullptr) {
+            curr = curr->next, count++;
+        }
+        
+        int effCount = k % count;
+        //rotate effCount times
+        count = 0;
+        while(count < effCount) {
+            count++, rotateLL(head);
+        }
+     
+        return head;
+    }
+};
