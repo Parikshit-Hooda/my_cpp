@@ -1,0 +1,53 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void transactions(vector<int> prices,int fee){
+ // write your code here
+
+
+        
+        if(prices.size() < 2) {
+          cout << "0"; return ;
+        };
+        
+        int bsp = -prices[0], ssp = 0;
+        int psize = prices.size();
+        for(int i = 1 ; i < psize ; i++) {
+            int new_bsp = 0;
+            int new_ssp = 0;
+            
+            //calculate new bought state profit
+            if(bsp < (ssp - prices[i])) new_bsp = ssp - prices[i];
+            else new_bsp = bsp;
+            
+            //calculate new sold state profit
+            if(ssp < (bsp + prices[i] - fee)) new_ssp = bsp + prices[i] - fee;
+            else new_ssp = ssp;
+            
+            bsp = new_bsp;
+            ssp = new_ssp;
+            
+            //cout << "bsp ssp " << bsp <<" " <<ssp << endl;
+        }
+        
+        
+        cout << ssp;
+
+
+}
+  int main() {
+    int n;
+    cin>> n;
+    vector<int> arr(n,0);
+    for (int i = 0; i < arr.size(); i++) {
+          cin>> arr[i];
+    }
+    int fee;
+    cin>> fee;
+
+   transactions(arr,fee);
+   
+  return 0;
+  }
