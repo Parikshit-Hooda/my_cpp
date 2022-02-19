@@ -1,0 +1,21 @@
+//https://leetcode.com/problems/find-three-consecutive-integers-that-sum-to-a-given-number/submissions/
+class Solution {
+public:
+    vector<long long> sumOfThree(long long num) {
+        vector<long long> res;
+        bool flag = false;
+
+        if(num%3 == 0) flag = true;
+
+        if(flag) {
+            cout <<"entered \n";
+        long long currnum;
+        currnum = num/3 -1;
+        res.push_back(currnum);
+        res.push_back(currnum+1);
+        res.push_back(currnum+2);
+        }
+        
+        return res;
+    }
+};
