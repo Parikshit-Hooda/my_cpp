@@ -1,0 +1,16 @@
+class Solution {
+public:
+    bool isPerfectSquare(int num) {
+        if(num < 2) return true;
+
+        bool ans = false;
+        int currDiv = 2;
+        while(1) {
+            if((long long)currDiv*currDiv > num) return false; 
+            if(currDiv*currDiv == num) return true;
+           
+            currDiv++;
+
+        }
+    }
+};
