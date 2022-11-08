@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int maximum69Number (int num) {
+      //convert num to string
+      //start making new num from left, in case of encountering first '6' from left, put that as a 9 in new string
+      string numStr = "";
+      int temp = num;
+      while(temp > 0) {
+          int curr = temp%10;
+          numStr = to_string(curr) + numStr;
+          temp /= 10;
+      }
+    //   cout << numStr;
+      int res = 0;
+      int flag = 1;
+      for(int i = 0 ; i < numStr.size(); i++) {
+          if(numStr[i] == '6') {
+              if(flag==1) {
+                  flag=0;
+                  res = res*10 + 9;
+              } else res = res*10 + 6;
+
+          } else {
+              res = res*10 + 9;
+          }
+          
+      }
+      return res;
+
+    }
+};
