@@ -1,0 +1,25 @@
+class Solution {
+public:
+    string reverseVowels(string s) {
+        if(s.size() < 1) return s;
+        string res = s;
+        int l = 0, r = s.size()-1;
+        set<char> st{'a','e','i','o','u','A','E','I','O','U'};
+        while(l<r) {
+            if(st.find(res[l]) == st.end()) {
+                l++;
+            } //if vowel not found, inc idx
+            else if(st.find(res[r]) == st.end()) {
+                r--;
+            }//if vowel not found, dec idx 
+            else if((st.find(res[r]) != st.end()) && (st.find(res[r]) != st.end())) {
+                char temp = res[l];
+                res[l] = res[r];
+                res[r] = temp;
+                l++,r--;
+            } //if vowels found on both idx, exchange vowels
+        } //while loop
+        return res;
+
+    }
+};
