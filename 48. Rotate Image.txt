@@ -1,0 +1,58 @@
+class Solution {
+public:
+
+    void reverseRow(vector<vector<int>>& m, int row, int csize) {
+        int start = 0, end = csize-1;
+        while(start < end) {
+            int temp = m[row][start];
+            m[row][start] = m[row][end];
+            m[row][end] = temp;
+            start++, end--;
+        }
+    }
+
+    void reverseRows(vector<vector<int>>& m) {
+        int rsize = m.size();
+        int csize = m[0].size();
+        for(int i = 0; i < rsize; i++) {
+            //for row with row index i, reverse
+            reverseRow(m,i, csize);
+
+        }
+    }
+
+
+    void transpose(vector<vector<int>> &m) {
+        // int i = 0;
+        int rsize = m.size(); //num rows
+        for(int i = 0 ; i < rsize; i++) {
+            //for each submatrix with top-left point being [i][i], swap [j][k] with [k][j]
+            int rowidx=i,colidx=i;
+            for(int j = rowidx; j < rsize; j++) {
+                int temp = m[rowidx][j];
+                m[rowidx][j] = m[j][colidx];
+                m[j][colidx] = temp;
+            }
+        }
+
+        return ;
+    } //transpose function done
+
+
+    void rotate(vector<vector<int>>& matrix) {
+        if(matrix.size()<2 || matrix[0].size()<2) return ;
+        //1. transpose matrix.
+        transpose(matrix);
+        
+        //intermediate print
+        for(int i = 0 ; i < matrix.size(); i++) {
+            for(int j = 0; j < matrix[0].size(); j++) {
+                cout << matrix[i][j];
+            }
+            cout << endl;
+        }
+
+        //2. reverse each row
+        reverseRows(matrix);
+    }
+};
