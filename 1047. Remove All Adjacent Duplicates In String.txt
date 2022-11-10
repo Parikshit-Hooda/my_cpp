@@ -1,0 +1,26 @@
+class Solution {
+public:
+    string removeDuplicates(string s) {
+        if(s.size()<2) return s;
+
+        //s size > 1
+        vector<char> stk;
+        for(int i = 0 ; i < s.size(); i++) {
+            //if stk is empty
+            if(stk.size()==0) {
+                stk.push_back(s[i]);
+            } else {
+                //stk vector has atleast one ele
+                char stkBack = stk.back();
+                if(s[i] == stkBack){
+                    stk.pop_back();
+                } else {
+                    stk.push_back(s[i]);
+                }
+            }
+        }
+        string res(stk.begin(), stk.end());
+
+        return res;
+    }
+};
