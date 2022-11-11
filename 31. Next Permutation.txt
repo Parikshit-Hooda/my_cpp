@@ -1,0 +1,42 @@
+class Solution {
+public:
+    void swap(vector<int>& nums, int first, int second){
+        int temp = nums[first];
+        nums[first] = nums[second];
+        nums[second] = temp;
+        return ;
+    }
+    
+    void reverseSubArr(vector<int>& nums, int l, int r){
+        while(l < r) {
+            swap(nums, l,r);
+            l++, r--;
+        }
+        return ;
+    }
+
+    void nextPermutation(vector<int>& nums) {
+        if(nums.size()<2) return ;
+        int i = nums.size()-2;
+        //start from back and find nums[i] where nums[i] < nums[i+1];
+        while(i >=0 && nums[i] >= nums[i+1]) {
+            i--;
+        }
+        if(i<0) {
+            reverseSubArr(nums, 0, nums.size()-1);
+            return ;
+        } //biggest num already, reverse arr and return
+
+        //find j where j>i and nums[j] > nums[i]
+        int j = nums.size()-1;
+        while(j > i && nums[j] <= nums[i]) {
+            j--;
+        }
+        swap(nums, i,j);
+        //reverse from i+1 to nums.size()-1
+        reverseSubArr(nums, i+1, nums.size()-1);
+        return ;
+
+    }
+
+};
