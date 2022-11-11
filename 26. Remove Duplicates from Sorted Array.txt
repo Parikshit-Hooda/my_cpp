@@ -1,0 +1,18 @@
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+          if(nums.size() < 2) return 1;
+          int distinctEleIdx = 0, discoverer = 0, distinctElecnt=1;
+          int numsSize = nums.size();
+          while(discoverer < numsSize) {
+              if(nums[distinctEleIdx] == nums[discoverer]){
+                  discoverer++;
+              } else {
+                  distinctEleIdx++;
+                  nums[distinctEleIdx] = nums[discoverer];
+                  discoverer++; distinctElecnt++;
+              }
+          }
+          return distinctElecnt;
+    }
+};
