@@ -1,0 +1,19 @@
+//dp[i] = dp[i-1] + dp[i-2] + dp[i-3] + ... + dp[0]. dp[0] = 1. 
+//find dp[i].
+
+//approach-1: dp[i] = 2 * dp[i-1]. finding dp[i-1] takes O(n) time and O(1) space.
+//approach-2. dp[i] = pow(2, n-1);
+//code for approach-2
+#include <bits/stdc++.h>
+using namespace std;
+
+int main() {
+	// your code goes here
+	int n;
+	cin >> n;
+	int dp_n = 0;
+	if(n==0 || n==1) dp_n = 1;
+	else dp_n = pow(2, n-1);
+	cout << dp_n;
+	return 0;
+}
