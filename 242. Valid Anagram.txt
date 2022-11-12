@@ -1,0 +1,23 @@
+class Solution {
+public:
+    bool isAnagram(string s1, string s2) {
+        	// string s1 = "banana", s2 = "BNNAAa";
+	vector<int> letters(256, 0);
+	transform(s1.begin(), s1.end(), s1.begin(), ::tolower);
+	transform(s2.begin(), s2.end(), s2.begin(), ::tolower);
+	// s1.toLower(), s2.toLower();
+	for(char ch : s1) {
+		letters[(int)ch]++;
+	}
+	for(char ch : s2) {
+		letters[(int)ch]--;
+	}
+	for(int letter : letters) {
+		if(letter != 0) {
+			return false;
+		}
+		
+	}
+	return true;
+    }
+};
