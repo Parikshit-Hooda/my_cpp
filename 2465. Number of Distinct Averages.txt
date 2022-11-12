@@ -1,0 +1,49 @@
+ //model solution
+int distinctAverages(vector<int>& nums) {
+    unordered_set<int> st;
+    sort(nums.begin(), nums.end());
+    for(int i = 0, j = nums.size()-1; i < nums.size()/2; ++i, --j)  st.insert(nums[i] + nums[j]);
+    return st.size();
+}
+
+
+/* //accepted solution
+
+class Solution {
+public:
+    int distinctAverages(vector<int>& nums) {
+        set<double> distinct;
+        if(nums.size()==0) return 0;
+        
+        for(int i = 0 ; i < nums.size()/2; i++) {
+            //get min and max
+            int minv=INT_MAX, maxv=INT_MIN, mini=-1, maxi=-1;
+            for(int j = 0; j < nums.size(); j++) {
+                if(nums[j] <= minv && nums[j]>=0) {
+                    minv = nums[j], mini = j;
+                } 
+                if(nums[j] >= maxv  && nums[j]>=0) {
+                    maxv = nums[j], maxi = j;
+                }
+            } //for j loop
+           
+            cout <<"vals " << minv << " " << maxv << endl ;
+            double avg = (double)(minv + maxv)/2.0;
+            if(minv != INT_MAX && maxv != INT_MIN)
+        		{
+        			 nums[mini] *= -1, nums[maxi] *= -1;
+        			 if(nums[mini] == 0) nums[mini] = -1;
+        			 if(nums[maxi] == 0) nums[maxi] = -1;
+        			if(distinct.find(avg) == distinct.end()) distinct.insert(avg); 
+        			
+        		}
+        } //for i loop
+        
+        return distinct.size();
+    }
+
+};
+
+
+
+*/
