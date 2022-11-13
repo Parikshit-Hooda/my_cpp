@@ -1,0 +1,69 @@
+//works best when all intermediate summations are within bounds, change int to long long for all round test cases coverage.
+//{ Driver Code Starts
+#include <bits/stdc++.h>
+
+using namespace std;
+
+// } Driver Code Ends
+class Solution{
+public:
+    int calcFullSum(int n) {
+        int res = (n*(n+1))/2;
+        return res;
+    }
+    int calcFullSum2(int n) {
+        int res = (n*(n+1)*(2*n+1))/6;
+        return res;
+    }
+    int calcArrSum(int *arr, int n) {
+        int res = 0;
+        for(int i=0; i < n; i++) res += arr[i];
+        return res;
+    }
+    int calcArrSum(int *arr, int n, int x) {
+        int res = 0;
+        for(int i=0; i < n; i++) res += arr[i]*arr[i];
+        return res;
+    }
+
+    int *findTwoElement(int *arr, int n) {
+        // code here
+        int *ans = new int[2];
+        int fullSum = calcFullSum(n);
+        int arrSum = calcArrSum(arr, n);
+        long long fullSum2 = calcFullSum2(n);
+        long long arrSum2 = calcArrSum(arr,n,2);
+        // cout << fullSum <<" " <<arrSum<<" "<<fullSum2<< " " << arrSum2<<endl; //good
+        int missing, repeating;
+        int fs_as = fullSum - arrSum;
+        int fs2_as2 = (fullSum2-arrSum2)/fs_as;
+        //m-r=fs_as, m+r=(fs2-as2)/fs2_as2
+        missing = (fs_as + fs2_as2)/2;
+        repeating = missing-fs_as;
+        
+        //missing = (fullSum*fullSum + arrSum*arrSum -2*fullSum*arrSum + fullSum2*fullSum2 - arrSum2*arrSum2)/(2*(fullSum-arrSum));
+        //repeating = (missing-fullSum+arrSum);
+        ans[0] = repeating, ans[1] = missing;
+        return ans;
+    }
+};
+
+//{ Driver Code Starts.
+
+int main() {
+    int t;
+    cin >> t;
+    while (t--) {
+        int n;
+        cin >> n;
+        int a[n];
+        for (int i = 0; i < n; i++) {
+            cin >> a[i];
+        }
+        Solution ob;
+        auto ans = ob.findTwoElement(a, n);
+        cout << ans[0] << " " << ans[1] << "\n";
+    }
+    return 0;
+}
+// } Driver Code Ends
