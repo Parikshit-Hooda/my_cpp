@@ -1,0 +1,48 @@
+class Solution {
+public:
+    // void reverseWord(string &s, int l, int r) {
+    //     while(l<r) {
+    //         char temp = s[l];
+    //         s[l] = s[r];
+    //         s[r] = temp;
+    //         l++,r--;
+    //     }
+    //     return ;
+
+    // }
+    vector<string> words;
+    void extractWord(string &s, int l, int r) {
+        string word = "";
+        for(int i = l ; i < r; i++) {
+            word = word + s[i];
+        }
+        words.push_back(word);
+        return ;
+    }
+
+    string reverseWords(string s) {
+        if(s.size()<2) return s;
+        string res="";
+        int i = 0 ;
+        int sSize = s.size();
+        while(i < sSize) {
+            if(s[i] != ' ')
+            {
+                int j = i;
+                while(j < sSize && s[j] != ' ') j++;
+                int left = i, right = j;
+                extractWord(s,left,right);
+                i=j+1;
+            } else i++;
+
+        }
+
+        //words contain all words left to right extracted
+        for(int k = 0; k < words.size(); k++) {
+            res = words[k] + " " + res;
+        }
+        //trim the last " ";
+        res.erase(res.size()-1,1);
+        return res;
+    }
+};
