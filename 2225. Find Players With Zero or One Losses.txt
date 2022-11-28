@@ -1,0 +1,49 @@
+class Solution {
+public:
+    vector<vector<int>> findWinners(vector<vector<int>>& matches) {
+        vector<vector<int>> res;
+        vector<int> a0, a1;
+       unordered_map<int,pair<int,int>> playerToWinCntLoseCnt;
+        //player -> winCount, loseCount
+        for(auto it = matches.begin(); it != matches.end(); it++) {
+            pair<int,int> curr = {(*it)[0], (*it)[1]};
+            //do for win
+            if(playerToWinCntLoseCnt.find(curr.first) != playerToWinCntLoseCnt.end()) { 
+                //found winning player in map
+                pair<int,int> temp = playerToWinCntLoseCnt[curr.first];
+                temp.first = temp.first+1;
+                playerToWinCntLoseCnt[curr.first] = temp;
+            } else if(playerToWinCntLoseCnt.find(curr.first) == playerToWinCntLoseCnt.end()) {
+                playerToWinCntLoseCnt[curr.first] = {1,0};
+            }
+            //do for lose
+            if(playerToWinCntLoseCnt.find(curr.second) != playerToWinCntLoseCnt.end()) {
+                //found losing player in map
+                pair<int,int> temp = playerToWinCntLoseCnt[curr.second];
+                temp.second = temp.second+1;
+                playerToWinCntLoseCnt[curr.second] = temp;
+            } else {
+                playerToWinCntLoseCnt[curr.second] = {0,1};
+            }
+        }
+
+        //print map to check logic
+        // for(auto it: mp) {
+        //     //print map ele
+        //     cout << it.first << " " << it.second.first << " " << it.second.second;
+        //     cout << endl;
+        // }
+
+        //iterate through the map and find mp key where mp[ele].second == 0 or 1
+        for(auto it: playerToWinCntLoseCnt) {
+            if(it.second.second == 0) a0.push_back(it.first);
+            if(it.second.second == 1) a1.push_back(it.first);
+        }
+        sort(a0.begin(), a0.end());
+        sort(a1.begin(), a1.end());
+
+        res.push_back(a0), res.push_back(a1);
+
+    return res;
+    }
+};
