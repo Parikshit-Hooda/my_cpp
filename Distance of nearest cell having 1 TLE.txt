@@ -1,0 +1,85 @@
+//{ Driver Code Starts
+#include<bits/stdc++.h>
+using namespace std;
+
+// } Driver Code Ends
+class Solution 
+{
+    private:
+    
+    int findDist(vector<vector<int>> grid, int i, int j) {
+        //run bfs to find 1st 1
+        queue<vector<int>> q;
+        vector<int> temp;
+        temp.push_back(i),temp.push_back(j),temp.push_back(0);
+        q.push(temp);
+        vector<int> delrow = {0,-1,0,1}, delcol = {-1,0,1,0};
+        //mark ele visited in grid as 'a'
+        int cd = INT_MAX;
+        while(!q.empty()) {
+            // int cr = q.front().first, cc = q.front().second;
+            vector<int> curr = q.front();
+            q.pop();
+            int cr = curr[0], cc = curr[1];
+            cd = curr[2];
+            if(grid[cr][cc] == 1) return cd;
+            grid[cr][cc] = -1; //marked visited
+            //get adjacent
+            for(int k = 0; k < 4; k++) {
+                int nr = cr + delrow[k], nc = cc + delcol[k];
+                //if nr and nc are valid
+                if(nr>=0 && nr < grid.size() && nc >=0 && nc < grid[0].size() && grid[nr][nc] != -1) q.push({nr,nc, cd+1});
+            }
+            // dist++;
+        }
+        return cd;
+        
+    }
+    
+    public:
+    //Function to find distance of nearest 1 in the grid for each cell.
+	vector<vector<int>>nearest(vector<vector<int>>grid)
+	{
+	    // Code here
+	    vector<vector<int>> res;
+	    
+	    //for each ele, run bfs
+	    for(int i = 0 ; i < grid.size(); i++) {
+	        vector<int> res1;
+	        for(int j = 0 ; j < grid[0].size(); j++) {
+	            if(grid[i][j] == 1) res1.push_back(0);
+	            else res1.push_back(findDist(grid, i,j));
+	        }
+	        
+	        res.push_back(res1);
+	    }
+	    
+	    return res;
+	}
+};
+
+//{ Driver Code Starts.
+int main(){
+	int tc;
+	cin >> tc;
+	while(tc--){
+		int n, m;
+		cin >> n >> m;
+		vector<vector<int>>grid(n, vector<int>(m, -1));
+		for(int i = 0; i < n; i++){
+			for(int j = 0; j < m; j++){
+				cin >> grid[i][j];
+			}
+		}
+		Solution obj;
+		vector<vector<int>> ans = obj.nearest(grid);
+		for(auto i: ans){
+			for(auto j: i){
+				cout << j << " ";
+			}
+			cout << "\n";
+		}
+	}
+	return 0;
+}
+// } Driver Code Ends
