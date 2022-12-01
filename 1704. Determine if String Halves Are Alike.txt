@@ -1,0 +1,25 @@
+class Solution {
+public:
+    bool halvesAreAlike(string s) {
+        if(s.size()==0) return true;
+
+        set<char> st({'a','e','i','o','u','A','E','I','O','U'});
+
+        int halfIdx = s.size()/2; //i=0 to halfIdx;
+        int leftCnt=0,rightCnt=0;
+        for(int i = 0 ; i < halfIdx; i++) {
+            if(st.find(s[i]) != st.end()) {
+                leftCnt++;
+            }
+        }
+        for(int i = halfIdx ; i < s.size(); i++) {
+            if(st.find(s[i]) != st.end()) {
+                rightCnt++;
+            }
+        }
+
+        if(leftCnt==rightCnt) return true;
+
+        return false;
+    }
+};
