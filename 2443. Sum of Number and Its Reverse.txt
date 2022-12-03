@@ -1,0 +1,29 @@
+class Solution {
+public:
+    int reverseNum(int num) {
+    int newnum = 0;
+    int temp  = num;
+    while(temp > 0) {
+        newnum *= 10;
+        int cdigit = temp%10;
+        temp /= 10;
+        newnum = newnum+cdigit;
+    }
+    return newnum;
+    } // fine, don't touch
+    
+    bool sumOfNumberAndReverse(int num) {
+        if(num==0) return true;
+        for(int curr = 0; curr <= num; curr++) {
+            int cr = reverseNum(curr);
+            if(curr + cr == num) {
+                // cout << curr << " " << cr << endl;
+                return true;
+        }
+        
+        
+    }
+                return false;
+
+    }
+};
