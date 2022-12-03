@@ -1,0 +1,32 @@
+class Solution {
+public:
+    
+    long long calcSum(int l, int r) {
+        long long sum = l;
+        for(int i = l+1; i <= r; i++) {
+            sum += i;
+        }
+        return sum;
+    }
+    
+    int pivotInteger(int n) {
+        if(n==1) return 1;
+        
+        long long tsum = calcSum(1,n);
+        int ridx=1;
+        int temp = 0;
+        long long sumL = 0,sumR=tsum;
+        
+        for(int i = 1; i < n; i++) {
+            //add ridx to sumL, temp to sumR
+            sumL += ridx, sumR -= temp;
+            //eval
+            if(sumL == sumR) return ridx;
+            //update
+            ridx++, temp++;
+            
+        }
+        
+        return -1;
+    }
+};
