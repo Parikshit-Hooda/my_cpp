@@ -1,0 +1,22 @@
+class Solution {
+public:
+    int appendCharacters(string s, string t) {
+        int si=0,ti=0;
+        
+        while(ti < t.size() && si < s.size()) {
+            if(s[si] == t[ti]) {
+                ti++,si++;
+            } else si++;
+        } //while
+        
+        //ti c, si p
+        //ti c,si c
+        //ti p, si c
+        if(ti == t.size() && si < s.size()) return 0;
+        if(ti==t.size() && si == s.size()) return 0;
+        if(ti < t.size() && si == s.size()) {
+            return t.size()-ti;
+        }
+        return 1; //just here, doesn't serve a purpose
+    }
+};
