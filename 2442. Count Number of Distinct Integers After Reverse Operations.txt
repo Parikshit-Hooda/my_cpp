@@ -1,0 +1,32 @@
+class Solution {
+public:
+    int reverseNum(int num) {
+        int newnum = 0;
+        int temp  = num;
+        while(temp > 0) {
+            newnum *= 10;
+            int cdigit = temp%10;
+            temp /= 10;
+            newnum = newnum+cdigit;
+        }
+        
+        return newnum;
+    } // fine
+    int countDistinctIntegers(vector<int>& nums) {
+        //make reverse, then add to nums
+        int nsize = nums.size();
+        
+        //reverse each int
+        for(int i = 0 ; i < nsize; i++) {
+            int num = nums[i];
+            int temp = reverseNum(num);
+            nums.push_back(temp);
+        }
+        set<int> s;
+        for(auto num : nums) s.insert(num);
+        
+        return s.size();
+        
+        //push each to set and return count
+    }
+};
