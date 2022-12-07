@@ -1,0 +1,21 @@
+class Solution {
+public:
+    string removeDigit(string num, char digit) {
+       string res = num;
+        string maxval = "-1";
+        for(int i = 0 ; i < num.size(); i++) {
+           if(num[i] == digit) {
+               //create resulting string and compare, update maxval if needed
+               string temp = num;
+               temp.erase(i,1);
+                if(temp > maxval) maxval = temp;
+                   
+           } 
+        }
+        
+        if(maxval == "-1") return num;
+        return maxval;
+            
+        
+    }
+};
