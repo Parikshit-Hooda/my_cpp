@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int minimumRecolors(string blocks, int k) {
+        int s=0,e=0,mc=k,wc=0;
+
+        //for each idx, create fwd box to count string length for k 'B's.
+        for(int i = 0; i < blocks.size()-k+1; i++) {
+            s = i;
+            //find num Ws for next k eles
+            wc=0;
+            int j = i;
+            for(; j < i+k; j++) {
+                if(blocks[j] == 'W') wc++;
+            }
+            //here, I know wc;
+            // if(j <= blocks.size())
+                mc = min(mc, wc);
+        }
+        
+        return mc;
+    }
+};
+
+/*
+
+    int minimumRecolors(string blocks, int k) {
+        int back = 0, front = 0, count_w = 0, ans = INT_MAX;
+        while(front < blocks.size()){
+            if(blocks[front] == 'W'){ count_w++; }
+            if(front - back + 1 == k){
+                ans = min(ans, count_w);
+                if(blocks[back] == 'W') count_w--;
+                back++;
+            }
+            front++;
+        }
+        return ans;
+    }
+    
+    */
