@@ -1,0 +1,16 @@
+class Solution {
+public:
+    int numberOfCuts(int n) {
+       if(n==1) return 0;
+        if(n==2) return 1;
+        
+        if(n%2 == 0) {
+            //even n
+            return n/2; //good
+        } else {
+            //odd n
+            // return n/2+1;
+            return n;
+        }
+    }
+};
