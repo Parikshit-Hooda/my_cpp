@@ -1,0 +1,45 @@
+class Solution {
+public:
+    
+bool isPrime(int n)
+{
+    // Corner case
+    if (n <= 1)
+        return false;
+ 
+    // Check from 2 to n-1
+    for (int i = 2; i < n; i++)
+        if (n % i == 0)
+            return false;
+ 
+    return true;
+}
+    
+    vector<int> calcPF(int num) {
+     
+        vector<int> res;
+        
+        for(int i = 2; i <= num; i++) {
+            if(isPrime(i) && num%i == 0) //i is prime and divides num
+                res.push_back(i);
+        }
+        return res;
+        
+    }
+    
+    int distinctPrimeFactors(vector<int>& nums) {
+        // map<int,int> mp; //prime factor -> occurence
+        set<int> st;
+        set<int> alreadyseen;
+        for(auto num : nums) {
+            //for eacj num, calc prime factors
+            if(alreadyseen.find(num) != alreadyseen.end()) continue;
+            alreadyseen.insert(num);
+            vector<int> PFVec = calcPF(num); //vector of prime factors
+            for(auto ele: PFVec) st.insert(ele);
+        }
+        for(auto ele: st) cout << ele <<" ";
+        return st.size();
+        
+    }
+};
