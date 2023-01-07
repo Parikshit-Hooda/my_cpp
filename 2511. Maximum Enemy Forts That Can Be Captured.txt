@@ -1,0 +1,41 @@
+class Solution {
+public:
+    int captureForts(vector<int>& forts) {
+        int md=0;
+        int l=0,r=0;
+        for(int i = 0 ; i < forts.size(); i++) {
+            l=i,r=i;
+            //traverse left and right
+            //traverse left
+            int cd = 0;
+            if(forts[l] == 1)
+            {
+                l--;
+                while(l >= 0) {
+                if(forts[l] == -1) { cd = max(cd, i-l-1); break;}
+                else if(forts[l] == 1) {cd=0; break;}
+                l--;
+                    }
+                md=max(md, cd);
+            
+            }//if
+            cd=0;
+            if(forts[r] == 1)
+            {
+                r++;
+                while(r < forts.size()) {
+                if(forts[r] == -1) { cd = max(cd, r-i-1); break;}
+                else if(forts[r] == 1) {cd=0; break;}
+                r++;
+                    }
+                md=max(md, cd);
+            
+            }//if    
+            
+            
+    } //for
+        
+        
+        return md;
+    }
+};
