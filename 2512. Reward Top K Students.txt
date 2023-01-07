@@ -1,0 +1,81 @@
+//submits with tle
+class Solution {
+public:
+    
+    vector<string> formWords(string report_) {
+        
+        vector<string> words;
+        for(int i = 0 ; i < report_.size(); i++) {
+            //if letter is ' ', do
+            int j = i;
+            while(report_[j] != ' ' && j < report_.size()) {
+                j++;
+            }
+            //here, j is at space or end
+            if(report_[j] == ' ') {
+                string word = report_.substr(i, j- i ); words.push_back(word); i = j;
+            }
+            else {
+                string word = report_.substr(i, j-i+1); words.push_back(word); i = j+1;
+            }
+        }
+        return words;
+        
+    }
+    
+static
+    bool comp(pair<int,int> i1, pair<int,int> i2) {
+        // return (i1. < i2.start);
+        if(i1.second > i2.second) return true;
+        if(i1.second == i2.second) {
+            if(i1.first < i2.first) return true;
+        }
+    
+    return false;
+    }
+
+    vector<int> topStudents(vector<string>& positive_feedback, vector<string>& negative_feedback, vector<string>& report, vector<int>& student_id, int k) {
+        
+        //for each word in report
+        vector<pair<int,int>> vec;
+        vector<int> res;
+        for(int reportidx = 0; reportidx < report.size(); reportidx++) {
+            //for each report, do something
+            //iteratively form words.
+            
+            int cscore= 0;
+            vector<string> words = formWords(report[reportidx]); //works
+            
+            
+            //find in positive or find in negative
+            for(auto word : words) {
+                auto itr = find(positive_feedback.begin(), positive_feedback.end(), word);
+                if(itr != positive_feedback.end()) cscore+=3; //maintain a running score for that student
+                else {
+                    itr = find(negative_feedback.begin(), negative_feedback.end(), word);
+                    if(itr != negative_feedback.end()) cscore-=1; //maintain a running score for that student
+                }
+            } //for each word
+            vec.push_back({student_id[reportidx], cscore}); // seems fine till here
+            
+        }
+        
+        //make a heap?
+        sort(vec.begin(), vec.end(), comp);
+        
+        for(int i = 0 ; i < k; i++) {
+            res.push_back(vec[i].first);
+        }
+        
+        // for(auto v: vec) {
+        //     cout << v.first <<" " << v.second;
+        //     cout << endl;
+        // }
+        
+        //maintain a vector of int with student <id,val>
+        //extract student ids in a result vector and return
+        
+        return res;
+        
+    }
+};
