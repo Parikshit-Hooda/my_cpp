@@ -1,0 +1,38 @@
+class DataStream {
+    queue<int> q;
+    int val;
+    int k;
+public:
+    // int start=0,end=0;
+    int rec=0;
+    DataStream(int value, int k) {
+        this->k = k;
+        this->val = value;
+    }
+    
+    bool consec(int num) {
+        //i got num
+        //if v size < k insert and return
+        if(q.size() < k-1) {q.push(num); if(num != val) rec++; return false;}
+        
+        //here size = k
+        bool res = false;
+        q.push(num);
+        if(num != val) rec++;
+        if(rec > 0) res = false;
+        else res = true;
+        
+        //pop front
+        int qfront = q.front();
+        if(qfront != val) rec--;
+        q.pop();
+        
+        return res;
+    }
+};
+
+/**
+ * Your DataStream object will be instantiated and called as such:
+ * DataStream* obj = new DataStream(value, k);
+ * bool param_1 = obj->consec(num);
+ */
