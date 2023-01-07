@@ -1,0 +1,36 @@
+//not working
+class Solution {
+public:
+    int takeCharacters(string s, int k) {
+        if(k==0) return 0;
+        if(s.size()<3) return -1;
+        
+        
+        vector<int> v(3,0);
+        int l=0,r=s.size()-1, m=1;
+        while(l <= r) {
+           
+            if(l==r) {
+                if(v[0]>=k && v[1]>=k && v[2]>=k) break;
+              v[s[l]-'a']++;  
+            m++;
+            break;
+            }
+            
+            //update v
+            // v[s[l]-'a']++;
+            // v[s[r]-'a']++;
+            if(v[s[l]-'a'] < k) {v[s[l]-'a']++; l++;}
+            else{ v[s[r]-'a']++; r--;}
+            
+            if(v[0]>=k && v[1]>=k && v[2]>=k) break;
+            m++;
+            // l++,r--;
+        }
+        
+        if(v[0]>=k && v[1]>=k && v[2]>=k) return m;
+        return 0;
+        
+        
+    }
+};
