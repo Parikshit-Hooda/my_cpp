@@ -1,0 +1,34 @@
+//not working
+class Solution {
+public:
+    int closetTarget(vector<string>& words, string target, int startIndex) {
+        int n = words.size();
+        int prevIdx=(startIndex-1+n)%n, nextIdx = (startIndex+1)%n;
+        
+        int minDist = INT_MAX;
+        if(words[startIndex]==target) return 0;
+        
+        //traverse in both direction and do match
+        if(words[prevIdx] == target || words[nextIdx] == target) {minDist=1; return minDist;}
+        
+        int  dist=1;
+        
+        while( prevIdx != nextIdx || (((prevIdx - 1 + n)%n -1) != ((nextIdx+1)%n)) ) {
+            if(words[prevIdx] == target) {
+                //update minDist
+                minDist = min(minDist, dist);
+                
+            }
+            if(words[nextIdx] == target) {
+                //update minDist
+                minDist= min(minDist,dist);
+            }
+            dist++;
+            //update prevIdx and nextIdx
+            prevIdx=(prevIdx - 1 + n)%n, nextIdx = (nextIdx+1)%n;
+        }
+        
+        if(minDist != INT_MAX) {return minDist;}
+        return minDist=-1;
+    }
+};
