@@ -1,0 +1,56 @@
+//https://www.geeksforgeeks.org/find-expression-duplicate-parenthesis-not/
+//speed coding - don't mind my code readability
+// C++ program to find duplicate parenthesis in a
+// balanced expression
+#include <bits/stdc++.h>
+using namespace std;
+
+// Function to find duplicate parenthesis in a
+// balanced expression
+bool findDuplicateparenthesis(string str)
+{
+  if(str.size()<1) return true;
+  
+  stack<char> s;
+  for(char c: str) {
+    //if opening, push
+    if(c != ')') s.push(c);
+    
+    if(c == ')') {
+      //pop till opening bracket
+      cout <<"if" << endl;
+      char sTop = s.top();
+      if(sTop == '(') return true;
+      else {
+        while(!s.empty()) {
+         //stack is not empty and top isn't '('
+          char top = s.top();
+          cout << top <<" " ;
+          s.pop();
+          if(top == '(') break;
+          
+        }
+      } //else
+      
+      
+    } //if
+    
+  } //for
+  //if(!s.empty()) return false;
+  return false;
+	} //fn end
+
+
+// Driver code
+int main()
+{
+	// input balanced expression
+	string str = "((a+b)+(c+d))";
+
+	if (findDuplicateparenthesis(str))
+		cout << "Duplicate Found ";
+	else
+		cout << "No Duplicates Found ";
+
+	return 0;
+}
