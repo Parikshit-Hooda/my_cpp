@@ -1,0 +1,38 @@
+class Solution {
+public:
+    
+    long long numsSum(vector<int> &nums) {
+        long long res=0;
+        for(auto num: nums) {
+            res += num;
+        }
+        return res;
+    }
+    
+    long long numsSumd(vector<int> &nums) {
+        long long res = 0;
+        for(auto num: nums) {
+            long long curr=0;
+            int cnum = num;
+            while(cnum>0) {
+                curr += cnum%10;
+                cnum /= 10;
+            }
+            
+            res += curr;
+        }
+        
+        return res;
+    }
+    
+    int differenceOfSum(vector<int>& nums) {
+        
+        if(nums.size() < 1) return 0;
+        
+        long long nsum = numsSum(nums);
+        long long dsum = numsSumd(nums);
+        
+        return (int)abs(nsum-dsum);
+        
+    }
+};
