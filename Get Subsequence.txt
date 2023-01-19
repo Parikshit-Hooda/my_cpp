@@ -1,0 +1,37 @@
+//https://www.youtube.com/watch?v=Sa5PmCFF_zI&list=PL-Jc9J83PIiFxaBahjslhBD1LiJAV7nKs&index=25
+#include <bits/stdc++.h>
+using namespace std;
+
+void findsubseq(string s, int idx, vector<string> &res) {
+
+	if(s.size() == idx) return ;
+	char ch = s[idx];
+	int ressize = res.size();
+	for(int i = 0; i < ressize; i++) {
+		string curr = res[i];
+		curr = curr + ch;
+		res.push_back(curr);
+	}
+	findsubseq(s, idx+1, res);
+	return ;
+}
+
+vector<string> subseq(string s, int idx) {
+	vector<string> res;
+	res.push_back("");
+	findsubseq(s,idx,res);
+	return res;
+}
+
+int main() {
+	// your code goes here
+	
+	string s = "a";
+	vector<string> res = subseq(s, 0);
+	
+	for(auto str: res) {
+		cout << str << endl;
+	}
+	
+	return 0;
+}
