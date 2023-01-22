@@ -1,0 +1,31 @@
+class Solution {
+public:
+    int alternateDigitSum(int n) {
+        if(n==0) return 0;
+        int sum=0, sign=1;
+        int temp = n;
+        vector<int> digits(10,0);
+        int i = 0;
+        while(temp>0){
+            int cdigit = temp%10;
+            digits[i] = cdigit * sign;
+            temp /= 10;
+            sign *= -1;
+            i++;
+        }
+        int nsize = i;
+        
+        if(digits[nsize-1] < 0) {
+            for(int j = 0; j < nsize; j++) {
+                digits[j] *= -1;
+            }
+        }
+        
+        for(auto ele: digits) {
+            sum += ele;
+        }
+        
+        
+        return sum;
+    }
+};
