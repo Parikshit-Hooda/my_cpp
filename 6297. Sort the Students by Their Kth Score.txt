@@ -1,0 +1,61 @@
+class Solution {
+public:
+    
+    void printmat(vector<vector<int>> score) {
+                for(vector<int> row: score) {
+            for(int curr: row) {
+                cout << curr << " ";
+            }
+            cout << endl;
+        }
+        cout << endl;
+    }
+    void printkscore(vector<int> kscore) {
+                for(auto ele: kscore) {
+            cout <<" " << ele << " ";
+        }
+        cout << endl;
+    }
+    
+    vector<vector<int>> sortTheStudents(vector<vector<int>>& score, int k) {
+        vector<int> kscore(score.size(), 0);
+        
+        //pop kscore
+        for(int i = 0; i < score.size(); i++) {
+            kscore[i] = score[i][k];
+        }
+        
+        sort(kscore.begin(), kscore.end());
+        vector<vector<int>> sorted(score.size(), vector<int> (score[0].size(), 0));
+        
+        cout << "printkscore ";
+        printkscore(kscore);
+        cout << endl;
+        //test
+        int currsortedrowidx=0;
+        for(int l = kscore.size()-1; l >= 0; l--) {
+            int ele = kscore[l];
+            //find ele in kth column of score
+            for(int i = 0; i < score.size(); i++) {
+                if(score[i][k] == ele) {
+                    //populate sorted
+                    for(int j = 0; j < sorted[0].size(); j++) {
+                        sorted[currsortedrowidx][j] = score[i][j];
+                    }
+                    currsortedrowidx++;
+                    continue;
+                }
+            }
+            
+            //populate sorted
+        }
+        cout << "printsorted ";
+        
+        printmat(sorted);
+        cout << endl;
+        
+        
+        
+        return sorted;
+    }
+};
