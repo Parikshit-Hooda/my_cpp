@@ -1,0 +1,19 @@
+bool getPath(Node* root, vector<int> &arr, int num) {
+	if(!root) return false;
+	
+	arr.push_back(root);
+	if(root->val == num) return true;
+	
+	if(getPath(root->left, arr, num) || getPath(root->right, arr, num)) return true;
+	arr.pop_back();
+	return false;
+	
+}
+
+vector<int> rootToNodePath(Node* root, int num) {
+	vector<int> res;
+	if(!root) return res;
+	bool found = getPath(root, res, num);
+	return res;
+	
+}
