@@ -1,0 +1,47 @@
+class Solution {
+public:
+    
+    string removeDuplicate(string str, int n)
+        {
+            // create a set using string characters
+            // excluding '\0'
+            // unordered_set<char>s (str, str+n-1);
+        set<char> s;
+        for(auto c: str) s.insert(c);
+        string st = "";
+
+            // print content of the set
+            int i = 0;
+            for (auto x : s)
+               st = st + x;
+            // str[i] = '\0';
+
+            return st;
+        }
+    
+    int similarPairs(vector<string>& words) {
+        
+        if(words.size() < 2) return 0;
+        
+        for(int i = 0 ; i < words.size(); i++) {
+            string word = words[i];
+            sort(word.begin(), word.end());
+        //remove duplicates from each
+            words[i] = removeDuplicate(word, word.size());
+        } //sort all
+        
+        for(auto word: words) cout << word <<" ";
+        cout << endl;
+        
+        int cnt = 0;
+        //run N2 search to compare 
+        for(int i = 0; i < words.size(); i++) {
+            for(int j = i+1; j < words.size(); j++) {
+                if(words[i] == words[j]) cnt++;
+            }
+        }
+        
+        return cnt;
+        
+    }
+};
