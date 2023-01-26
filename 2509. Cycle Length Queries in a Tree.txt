@@ -1,0 +1,17 @@
+class Solution {
+public:
+    vector<int> cycleLengthQueries(int n, vector<vector<int>>& q) {
+        vector<int>ans;
+        for(auto&u:q){
+            int a = u[0], b = u[1];
+            int d = 0;
+            while(a!=b){
+                if(b>a) b/=2;
+                else a/=2;
+                d++;
+            }
+            ans.push_back(d+1);
+        }
+        return ans;
+    }
+};
