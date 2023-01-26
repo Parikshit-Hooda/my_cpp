@@ -1,0 +1,30 @@
+class Solution {
+public:
+    //contributed by leetcode @votrubac
+    bool isPossible(int n, vector<vector<int>>& edges) {
+    vector<unordered_set<int>> al(n + 1); //vertex to other vertices
+    vector<int> odd;    //count vertices with odd degree and store here 
+    for (auto &e : edges) {
+        al[e[0]].insert(e[1]);
+        al[e[1]].insert(e[0]);
+    } //this loop stores adjacency list in form of set
+    for (int i = 1; i <= n; ++i)
+        if (al[i].size() % 2 == 1)
+            odd.push_back(i); //records odd degree vertices
+        
+        //can only have 3 cases - in case odd vertices are 0 , handled at last
+        
+        //in case odd vertices are 2, handled by checking if there exist any other vertex which doesn't have link to the 2 odd vertices, to which we can connect our 2 odd degree vertices.
+    if (odd.size() == 2)
+        for (int i = 1; i <= n; ++i)
+            if (al[odd[0]].count(i) == 0 && al[odd[1]].count(i) == 0)
+                return true;
+        
+        //in case of 4 odd vertices, check if they can connect to each other to satisfy condition
+    if (odd.size() == 4)
+        return (al[odd[0]].count(odd[1]) == 0 && al[odd[2]].count(odd[3]) == 0)
+            || (al[odd[0]].count(odd[2]) == 0 && al[odd[1]].count(odd[3]) == 0)
+            || (al[odd[0]].count(odd[3]) == 0 && al[odd[1]].count(odd[2]) == 0);
+    return odd.size() == 0;
+}
+};
