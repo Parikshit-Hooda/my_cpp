@@ -1,0 +1,39 @@
+class Solution {
+public:
+    static bool ccomp(string a, string b)
+    {
+        //run a nuanced compare 
+        string f = a+b, s = b+a;
+        if(f < s) return false;
+        return true;
+    }
+
+    void convert(vector<string> &strInput, const vector<int> &nums) {
+        for(auto ele: nums) {
+            strInput.push_back(to_string(ele));
+        } //eles converted to v string
+
+        sort(strInput.begin(), strInput.end(), ccomp); //meat of code - custom sort
+
+        return ;
+    }
+
+    string largestNumber(vector<int>& nums) {
+
+        {//edge case
+            long long sum = 0; 
+            for(auto num: nums) sum+=num;
+            if(sum == 0) return "0";
+        }
+
+        vector<string> strInput;
+        convert(strInput, nums); //done
+
+        string res = "";
+        for(auto ele: strInput) {
+            res = res + ele;
+        }
+        return res;
+    }
+
+};
