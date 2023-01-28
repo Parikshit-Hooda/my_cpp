@@ -1,0 +1,44 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class Solution {
+public:
+
+    void find(TreeNode* root, int k, int &ck, int &res) {
+        if(root == nullptr) return ;
+
+        //go left
+        find(root->left, k, ck, res);
+        if(k==ck) res = root->val;
+        ck++;
+
+        find(root->right, k, ck, res);
+        return ;
+    }
+
+    int countnodes(TreeNode* root) {
+        if(root == nullptr) return 0;
+        else return 1 + countnodes(root->left) + countnodes(root->right);
+    }
+
+    int kthSmallest(TreeNode* root, int k) {
+        int res = -1;
+        int ck = 1;
+        //step1 count number of nodes in tree
+        int cnt = 0;
+        int count = countnodes(root);
+        // cout << count << endl;
+        find(root, count-k+1, ck, res);
+
+        return res;
+
+    }
+};
