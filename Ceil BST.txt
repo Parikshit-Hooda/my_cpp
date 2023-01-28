@@ -1,0 +1,25 @@
+int Ceil(node* root, int input)
+{
+	// Base case
+	if (root == NULL)
+		return -1;
+	int res = -1;
+  
+  while(root) {
+   if(root->key == input) {
+    res = input;
+     break;
+   }
+    if(root->key > input) {
+    res = root->key;
+      root = root->left;
+    } else {
+     root = root->right; 
+    }
+    
+    
+  }//while loop
+  
+  
+return res;
+}
