@@ -1,0 +1,40 @@
+class Solution {
+public:
+    int distinctIntegers(int n) {
+        
+        vector<int> nums(101, 0);
+        // nums.push_back(n);
+        nums[n] = 1;
+        int i = 0;
+        while(i < 10e9) { //10^9 iterations
+            int flag = 0;
+            //iterate through nums array
+            for(int j = 1; j <= 100; j++) {
+                
+                if(nums[j] !=0) {
+                    //find all mod conditions nums
+                    for(int k = 1; k <= j ; k++ ) {
+                        if(j%k == 1 && nums[k] == 0) {
+                            flag =1;
+                            nums[k] = 1;
+                        } 
+                    } //k
+                } //if
+            } //j
+            
+            if(!flag) break;
+            i++;
+            
+            }
+            int cnt = 0;
+            //count eles
+        for(auto ele: nums) {
+            cout << ele << " ";
+            if(ele == 1) cnt++;
+        }
+        cout << endl;
+        return cnt;
+            
+        }
+        
+};
