@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int reverse(int x) {
+        if(x == INT_MIN || x == 0) return 0;
+        int res = 0;
+        int xcopy = x;
+        bool negative = false;
+        if(xcopy < 0) {
+            negative = true;
+            xcopy *= -1;
+        }
+        while(xcopy>0) {
+            long long num = (long long)(res)*10 + xcopy%10;
+            if(num > INT_MAX) {
+                res = 0; break;
+            }
+            res = res*10 + xcopy%10;
+            xcopy /= 10;
+            cout << res << " ";
+        }
+        //reverse
+        if(negative) res *= -1;
+        return res;
+    }
+};
