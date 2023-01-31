@@ -6,4 +6,5 @@ Repository containing my CPP/C++ code.
 2. zig zag traversal - Binary tree
 3. Check for Symmetrical Binary tree
 4. Find Lowest Common Ancestor
+5. https://workat.tech/problem-solving/practice/populating-next-right-pointers-in-each-node
 
