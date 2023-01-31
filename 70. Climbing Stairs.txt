@@ -1,0 +1,20 @@
+class Solution {
+public:
+    int climbStairs(int n) {
+        vector<int> numWays(46,0);
+        numWays[0] = 0;
+        numWays[1] = 1;
+        numWays[2] = 2;
+
+        if(n <= 2) return numWays[n];
+
+        for(int i = 3; i <= n; i++) {
+            numWays[i] = numWays[i-1] + numWays[i-2];
+        }
+
+        return numWays[n];
+
+
+
+    }
+};
