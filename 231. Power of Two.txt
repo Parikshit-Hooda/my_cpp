@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isPowerOfTwo(int n) {
+               if(n==0) return false;
+        if(n==1 || n==2) return true;
+        int power = 2;
+        bool ans = false;
+        while(1) {
+            long long curr = pow(2,power);
+            if(curr == n) {ans = true; break;}
+            if(curr < n) power++;
+            if(curr > n) break;
+            if(curr > INT_MAX) break;
+        }
+
+        return ans; 
+    }
+};
