@@ -1,0 +1,18 @@
+class Solution {
+public:
+    bool isPowerOfThree(int n) {
+        if(n==0 || n==2) return false;
+        if(n==1 or n==3) return true;
+        int power = 2;
+        bool ans = false;
+        while(1) {
+            long long curr = pow(3,power);
+            if(curr == n) {ans = true; break;}
+            if(curr < n) power++;
+            if(curr > n) break;
+            if(curr > INT_MAX) break;
+        }
+
+        return ans;
+    }
+};
