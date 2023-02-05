@@ -7,4 +7,6 @@ Repository containing my CPP/C++ code.
 3. Check for Symmetrical Binary tree
 4. Find Lowest Common Ancestor
 5. https://workat.tech/problem-solving/practice/populating-next-right-pointers-in-each-node
+6. Leetcode - 342. Power of Four
+
 
