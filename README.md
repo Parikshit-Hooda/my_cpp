@@ -8,5 +8,6 @@ Repository containing my CPP/C++ code.
 4. Find Lowest Common Ancestor
 5. https://workat.tech/problem-solving/practice/populating-next-right-pointers-in-each-node
 6. Leetcode - 342. Power of Four
-7. 383. Ransom Note - Leetcode
+7. Leetcode 383. Ransom Note - Leetcode
+111. Minimum Depth of Binary Tree
 
