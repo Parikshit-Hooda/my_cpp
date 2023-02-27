@@ -1,0 +1,86 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+	Node *links[26];
+	bool flag = false;
+	//functions
+	bool containsKey(char c) {
+		return (links[c-'a'] != NULL);
+	}
+	Node* get(char c) {
+		return links[c - 'a'];
+	}
+	
+	void put(Node* root, char c) {
+		links[c - 'a'] = root;
+		
+	}
+	
+	void setEnd() {
+		flag = true; return ;
+	}
+	
+	bool isEnd() {
+		return flag;
+	}
+}
+
+class Trie {
+	private:
+	Node* root;
+	
+	public:
+		Trie() {
+			root = new Node();
+		}
+		
+		void insert(string word) {
+			//for every c in word, if trie doesn't exist, create new trie and link.
+			//move to new trie
+			//in end, mark flag as true
+			Node *node = root;//here I have access to root node of trie
+			for(int i = 0; i < word.size(); i++) {
+				char curr = word[i];
+				if(!containsKey(curr)) {
+					node->put(node, curr);
+				}
+				node = node->get(curr);
+			}
+			node->setEnd();
+			return ;
+		}
+		
+		bool search(string word) {
+			Node *node = root;
+			for(int i = 0; i < word.size(); i++) {
+				char curr = word[i];
+				if(!containsKey(curr)) {
+					return false;
+				}
+				node = node->get(curr);
+			}
+			return node->isEnd();
+		}
+		
+		bool startsWith(string pre) {
+			Node *node = root;
+
+			for(int i = 0; i < pre.size(); i++) {
+				char curr = pre[i];
+				if(!containsKey(curr)) {
+					return false;
+				}
+				node = node->get(curr);
+			}
+			return true;			
+			
+		}
+		
+}
+
+
+int main() {
+	// your code goes here
+	return 0;
+}
