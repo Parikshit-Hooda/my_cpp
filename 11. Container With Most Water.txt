@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int maxArea(vector<int>& height) {
+        int maxarea = 0;
+        if(height.size() < 2) return maxarea;
+        int leftidx = 0, rightidx = height.size()-1;
+
+        while(leftidx < rightidx) {
+            if(height[leftidx] < height[rightidx]) {
+                maxarea = max(maxarea, ((rightidx-leftidx)*(height[leftidx])));
+                leftidx++;
+            } else {
+                maxarea = max(maxarea, ((rightidx-leftidx)*(height[rightidx])));
+                rightidx--;
+            }
+        }
+
+
+        return maxarea;
+    }
+};
