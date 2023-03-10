@@ -1,0 +1,31 @@
+class Solution {
+public:
+    vector<vector<string>> groupAnagrams(vector<string>& strs) {
+        map<string, vector<string>> mp;
+        vector<vector<string>> res;
+
+        for(auto str: strs) {
+            string curr = str;
+            sort(curr.begin(), curr.end());
+            if(mp.find(curr) != mp.end()) {
+                //exists in map mp
+                mp[curr].push_back(str);
+            } else {
+                mp[curr] = {};
+                mp[curr].push_back(str);
+            }
+
+
+        }
+
+        for(auto ele: mp) {
+            res.push_back(ele.second);
+        }
+        // for(auto ele: mp) {
+        //     cout << ele.first << " " << ele.second[0] << endl;
+        // }
+
+
+        return res;
+    }
+};
