@@ -1,30 +1,14 @@
 class Solution {
 public:
     bool canJump(vector<int>& nums) {
-        bool res = false;
-        long long reach = 0;
-        if(nums.size()==1) return true;
-        if(nums[0] == 0) return false;
-        
-        //approach 1 - create a boolean reachable array to track whether each point is reachable
-        //O(N^2)?
-        //if i iterate and at any point, i see my max reachable <= current index, i can return false;
-        vector<bool> r(nums.size(), false);
+        int reachable = 0;
 
-        long long m = 0 + nums[0];
-        r[m] = true;
-        for(int i = 0; i < nums.size(); i++) {
-            if(i <= m) {
-                //update - reachable
-                m = max(m, (long long)(i + nums[i]));
-                cout << "m is " << m << endl;
-                if(m >= nums.size()) {res= true; break;}
-                r[m] = true;
-            } else {
-                res = false; break;
-            }
+        for(int i = 0 ; i < nums.size(); i++) {
+            if(reachable < i) return false;
+            // reachable = i + nums[i];
+            reachable = max(reachable, i + nums[i]);
         }
-        if(m >= nums.size() || r[nums.size()-1] == true) res = true;
-        return res;
+
+        return true;
     }
 };
