@@ -1,0 +1,51 @@
+class Solution {
+public:
+    vector<int> spiralOrder(vector<vector<int>>& m) {
+        //using top, left, bottom, right to constrain traversal
+        //using n to determine which direction to traverse - starting from left to right
+        int elementsprocessed = 0;
+        vector<int> output;
+        int top=0,bottom=m.size()-1, left=0,right=m[0].size()-1;
+        int n = 0;
+        while(elementsprocessed < (m.size()*m[0].size())) {
+            if(n%4==0) {
+                //left
+                int i = left;
+                for(; i <= right; i++) {
+                    output.push_back(m[top][i]);
+                    elementsprocessed++;
+                }
+                n++, top++;
+            } else if(n%4==1) {
+                //down
+                int i = top;
+                for(; i <= bottom; i++) {
+                    output.push_back(m[i][right]);
+                    elementsprocessed++;
+                }
+                n++, right--;
+            } else if(n%4 == 2) {
+                //right
+                int i = right;
+                for(; i >= left; i--) {
+                    output.push_back(m[bottom][i]);
+                    elementsprocessed++;
+                }
+
+                n++, bottom--;
+            } else if(n%4 == 3) {
+                //up
+                int i = bottom;
+                for(; i >= top; i--) {
+                    output.push_back(m[i][left]);
+                    elementsprocessed++;
+                }
+
+                n++, left++;
+            }
+        } //while
+
+
+        return output;
+    }
+};
