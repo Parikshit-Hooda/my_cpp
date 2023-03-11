@@ -1,0 +1,21 @@
+class Solution {
+public:
+    vector<vector<int>> subsets(vector<int>& nums) {
+        //subsets formation - approach 1 - 
+        vector<vector<int>> res;
+        res.push_back({}); //push empty vector
+
+        for(int i = 0; i < nums.size(); i++) {
+            int curr = nums[i];
+            int crs = res.size();
+            for(int j = 0; j < crs; j++) {
+                vector<int> addTo = res[j];
+                addTo.push_back(curr);
+                res.push_back(addTo);
+            }
+        }
+
+
+        return res;
+    }
+};
