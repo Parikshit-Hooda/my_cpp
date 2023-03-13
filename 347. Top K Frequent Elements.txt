@@ -1,0 +1,46 @@
+class Solution {
+public:
+
+class Compare
+{
+public:
+    bool operator() (pair<int,int> &a, pair<int,int> &b)
+    {
+        if(a.second > b.second) {
+            return true;
+        }
+        return false;
+    }
+};
+
+
+    vector<int> topKFrequent(vector<int>& nums, int k) {
+        priority_queue<pair<int,int>, vector<pair<int,int>>, Compare> minheap;
+        unordered_map<int,int> mp;
+        for(auto num: nums) {
+            if(mp.find(num) != mp.end()) mp[num]++;
+            else mp[num] = 1;
+            
+        } //num -> freq
+        
+        for(auto mpele: mp) {
+            int num = mpele.first, freq = mpele.second;
+            cout << "num, fre" << num << " " << freq << endl;
+            minheap.push({num,freq});
+            if(minheap.size()>k) {
+                cout <<"top " << minheap.top().first << " " << minheap.top().second << endl;
+                minheap.pop();
+
+            }
+        }
+
+        vector<int> res;
+        while(!minheap.empty()) {
+            pair<int,int> curr = minheap.top();
+            minheap.pop();
+            res.push_back(curr.first);
+        }
+
+        return res;
+    }
+};
