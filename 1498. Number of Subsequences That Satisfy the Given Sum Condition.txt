@@ -1,0 +1,26 @@
+class Solution {
+public:
+    int numSubseq(vector<int>& nums, int target) {
+        //O(N)
+        sort(nums.begin(), nums.end());
+        int mn = INT_MAX, mx = INT_MIN;
+        int s=0,e=0;
+        int cnt = 0;
+        for(; e < nums.size(); e++) {
+            mn = min(mn, nums[e]);
+            mx = max(mx, nums[e]);
+            cout <<"mxmn" << mx <<" " << mn << endl;
+            if(mx+mn <= target) {
+                //increase cnt
+                cnt += (pow(2, e-s+1) - 1);
+                cout<<"cnt" << cnt << endl;
+            } else {
+                //shrink window
+                s++;
+                mn = nums[s];
+            }
+        }
+
+        return cnt;
+    }
+};
