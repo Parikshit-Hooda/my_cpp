@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool canConstruct(string ransomNote, string magazine) {
+        map<char,int> notemp;
+        for(auto ch: ransomNote) notemp[ch]++;
+
+        map<char,int> magmp;
+        for(auto ch: magazine) magmp[ch]++;
+
+        bool possible=true;
+        for(auto ch: ransomNote) {
+            if(magmp[ch] < notemp[ch]) possible=false;
+        }
+
+
+
+        return possible;
+    }
+};
