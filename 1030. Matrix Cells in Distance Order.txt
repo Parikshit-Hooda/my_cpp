@@ -1,0 +1,55 @@
+const int N = 102;
+bool vis[N][N];
+int dx[4] = {0, 0, 1, -1};
+int dy[4] = {1, -1, 0, 0};
+int n, m;
+class Solution {
+public:
+    bool safe(int i, int j)
+    {
+        return i>-1 && j>-1 && i<n && j<m;    
+    }
+    
+    void bfs(int i, int j, vector<vector<int>> &ans)
+    {
+        queue<pair<int,int>> q;
+        q.push({i, j});
+        vis[i][j] = 1;
+        vector<int> pt(2);
+        pt[0]=i;
+        pt[1]=j;
+        ans.push_back(pt);
+        
+        while(!q.empty())
+        {
+            auto p = q.front();
+            q.pop();
+            int pi = p.first;
+            int pj = p.second;
+            
+            for (int d=0 ; d<4 ; d++)
+            {
+                int ci = pi + dx[d];
+                int cj = pj + dy[d];
+                if (safe(ci, cj) && !vis[ci][cj])
+                {
+                    vis[ci][cj] = 1;
+                    q.push({ci, cj});
+                    pt[0]=ci;
+                    pt[1]=cj;
+                    ans.push_back(pt);
+                }
+            }
+        }
+    }
+    
+    vector<vector<int>> allCellsDistOrder(int r, int c, int x, int y) 
+    {
+        memset(vis, 0, sizeof(vis));
+        vector<vector<int>> ans;
+        n=r;
+        m=c;
+        bfs(x, y, ans);
+        return ans;
+    }
+};
