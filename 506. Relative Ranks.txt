@@ -1,0 +1,24 @@
+class Solution {
+public:
+    vector<string> findRelativeRanks(vector<int>& score) {
+    unordered_map<int, int> m; /* score -> pos */
+    vector<string> v(score.size(), "");
+    int i, size = score.size();
+    for (i = 0; i < size; ++i) {
+        m[score[i]] = i;
+    }
+    sort(score.begin(), score.end(), greater<int>());
+    for (i =  0; i < size; ++i) {
+        if (i+1 == 1) {
+            v[m[score[i]]] = "Gold Medal";
+        } else if ( i+1 == 2) {
+            v[m[score[i]]] = "Silver Medal";
+        } else if (i+1 == 3) {    
+            v[m[score[i]]] = "Bronze Medal";
+        } else {
+            v[m[score[i]]] = to_string(i+1);
+        }
+    }
+    return v;
+}
+};
