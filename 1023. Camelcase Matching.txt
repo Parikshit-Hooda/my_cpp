@@ -1,0 +1,40 @@
+class Solution {
+public:
+    vector<bool> camelMatch(vector<string>& queries, string pattern) {
+        //for each query
+        vector<bool> res;
+        map<char,int> mp;
+        for(auto ele: pattern) {
+            mp[ele]++;
+        }
+        for(string query: queries) {
+            //subsequence search
+            string curr = query;
+            int pidx = 0;
+            for(int i = 0 ; i < curr.size(); i++) {
+                if(pattern[pidx] == curr[i]) pidx++;
+            }
+            // if()
+            if(pidx < pattern.size()) res.push_back(false);
+            else {
+//take care of uppercase
+            string cp = "";
+            for(auto ele: pattern) {
+                if(ele >= 'A' && ele <= 'Z') cp += ele;
+            }
+            curr="";
+            for(auto ele: query) {
+                if(ele >= 'A' && ele <= 'Z') curr += ele;
+            }
+            if(cp != curr) res.push_back(false);
+            else res.push_back(true);
+            }
+            
+
+
+
+        }
+
+        return res;
+    }
+};
