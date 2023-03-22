@@ -1,0 +1,30 @@
+class Solution {
+public:
+    int triangleNumber(vector<int>& nums) {
+        int ans=0;
+        int n = nums.size();
+//sorting the given array
+        sort(nums.begin(),nums.end());
+//iterating from end to 2nd element
+        for(int i=n-1;i>=2;i--){
+            int low=0;
+            int high=i-1;
+//setting high as previous of greater element
+            while(low<high){
+
+                if(nums[low]+nums[high]>nums[i]){
+//if element at low and high index is greater than largest element
+                    ans += (high-low);
+//then setting ans as high-low i.e, all elemnt between this range is 
+//counted
+                    high--;
+                }
+                else{
+                    low++;
+                }
+            }
+        }
+        return ans;
+//at last we return the answer
+    }
+};
