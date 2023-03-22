@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int numSubarraysWithSum(vector<int>& nums, int goal) {
+        //a1. find all subarrays - calc each sum, inc cnt if sum == goal
+        int e = 0, s = 0 ;
+        int csum = 0;
+        int cnt = 0;
+        for(; e < nums.size(); e++) {
+            csum += nums[e];
+            //if csum < goal
+            if(csum == goal) {
+                cnt++;
+            }
+            if(csum > goal) {
+                //shrink window
+                int left = nums[s];
+                csum -= left;
+                s++;
+            }
+            //else
+        }
+        cout << s << endl;
+        while(s < nums.size()) 
+        {
+            if(csum == goal) cnt++;
+            csum -= nums[s];
+            s++;
+
+
+        }
+
+        return cnt;
+    }
+};
