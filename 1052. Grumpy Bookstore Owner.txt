@@ -1,39 +1,30 @@
 class Solution {
 public:
     int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {
-        //slide a window of size max minutes. at each step, find max grumpiness you can reduce
-        int sum = 0;
-        int need = 0;
-        int e = 0, s = 0;
-        int windowi = -1, windowj = -1;
+        int s = 0, e = 0, csum = 0, msum = 0; int res = 0; int sat = 0;
         for(; e < grumpy.size(); e++) {
-            int wsize = e-s+1; //window size
-            sum += (grumpy[e] == 0) ? customers[e] : 0;
-            if(sum > need) {
-                windowi = s, windowj = e; need = sum;
-            }
-            // need = max(sum, need);
+            int wsize = e-s+1;
+
             if(wsize > minutes) {
                 //shrink
-                if(grumpy[s] == 0) sum -= customers[s];
+                if(grumpy[s] == 1) csum -= customers[s];
                 s++;
             }
-            cout <<"sum, need " << s << " " << e << " " << sum << " " << need << endl;
 
-        } // this is right
-        int res = 0; int k = 0;
-        for(auto ele: grumpy) {
-            res += (ele > 0) ? customers[k] : 0;
-            k++;
-        }
-        if(windowi != -1 && windowj != -1) {
-            //process the grumpy window
-            for(int i = windowi; i <= windowj; i++) {
-                if(grumpy[i] == 0) res += customers[i];
+            if(grumpy[e] == 0) sat += customers[e];
+            else {
+                csum += customers[e];
+                msum = max(csum, msum);
             }
+
+
+
         }
+        cout << msum + sat;
+
+        cout << msum;
 
 
-        return res;
+        return msum + sat;
     }
 };
