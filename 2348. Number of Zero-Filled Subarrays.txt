@@ -1,0 +1,23 @@
+class Solution {
+public:
+    long long zeroFilledSubarray(vector<int>& nums) {
+        //for every 0-filled subtstring, calc number of substrings possible
+        long long cnt = 0;
+        for(int i = 0; i < nums.size(); i++) {
+            int j = i;
+            if(nums[i] == 0) {
+                for(; j < nums.size(); j++) {
+                    if(nums[j] != 0) break;
+                }
+                //update cnt
+                cout << "i,j " << i << " " << j << endl;
+                long long n = j-i;
+
+                cnt += (n*(n+1))/2;
+                i=j;
+            }
+        }
+
+        return cnt;
+    }
+};
