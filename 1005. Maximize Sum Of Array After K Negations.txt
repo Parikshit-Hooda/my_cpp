@@ -23,3 +23,39 @@ public:
         return sum;
     }
 };
+
+/*
+class Solution {
+public:
+    int largestSumAfterKNegations(vector<int>& nums, int k) {
+        sort(nums.begin(), nums.end());
+        for(int i = 0 ; i < nums.size() && k > 0; i++) {
+            if(nums[i] <= 0) {
+                nums[i] *= -1; k--;
+            } else break;
+        }
+        int sum = 0;
+        int minnum = INT_MAX;
+        for(auto ele: nums) {
+            sum += ele;
+            minnum = min(minnum, ele);
+        }
+
+        if(k%2) {
+            //odd
+            sum -= 2*minnum;
+        } else {
+            //even
+        }
+
+        // sort(nums.begin(), nums.end());
+
+        // cout << "k " << k << endl;
+        // for(auto ele: nums) cout << ele <<" ";
+        // cout << endl;
+
+        return sum;;
+    }
+};
+
+*/
