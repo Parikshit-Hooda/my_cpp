@@ -1,0 +1,25 @@
+class Solution {
+public:
+    int largestSumAfterKNegations(vector<int>& nums, int k) {
+        //min heap pq
+        //for k times, pick top, negate and push back
+        priority_queue<int, vector<int>, greater<int>> heap;
+
+        for(auto ele: nums) heap.push(ele);
+
+        for(int i = 0; i < k; i++) {
+            int top = heap.top();
+            heap.pop();
+            top *= -1;
+            heap.push(top);
+        }
+        int sum = 0;
+        while(!heap.empty()) {
+            int curr = heap.top(); heap.pop(); sum += curr;
+            // heap += *ele;
+            cout << curr << " ";
+        } 
+        cout << endl;
+        return sum;
+    }
+};
