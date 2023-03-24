@@ -1,0 +1,21 @@
+class Solution {
+public:
+    int findGCD(vector<int>& nums) {
+        int s = INT_MAX, b = INT_MIN;
+        for(auto ele: nums) {
+            s = min(s, ele);
+            b = max(b, ele);
+        }
+
+        //find gcd for s and b
+        int gcd = 1;
+        cout << s << b ;
+        for(int i = 1; i <= s; i++) {
+            if(s%i == 0 && b%i == 0) {
+                gcd = i;
+            }
+        }
+
+        return gcd;
+    }
+};
