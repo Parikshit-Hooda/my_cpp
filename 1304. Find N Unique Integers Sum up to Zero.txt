@@ -1,0 +1,10 @@
+class Solution {
+public:
+    vector<int> sumZero(int n) {
+       //for n/2 times, take 1,-1,2,-2,3,-3 and so on
+        vector<int> A(n);
+        for (int i = 0; i < n; ++i)
+            A[i] = i * 2 - n + 1;
+        return A;
+    }
+};
