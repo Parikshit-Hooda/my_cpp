@@ -1,0 +1,19 @@
+class Solution {
+public:
+    bool judgeCircle(string moves) {
+        bool res = 0;
+        int i = 0,j=0;
+        for(auto move: moves) {
+            switch(move) {
+                case 'U': i--; break;
+                case 'D': i++; break;
+                case 'L': j--; break;
+                case 'R': j++; break;
+                default: break;
+            }
+        }
+        if(i==0 && j==0) res = true;
+        else res = false;
+        return res;
+    }
+};
