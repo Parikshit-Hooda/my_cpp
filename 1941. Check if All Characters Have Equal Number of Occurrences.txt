@@ -1,0 +1,11 @@
+class Solution {
+public:
+    bool areOccurrencesEqual(string s) {
+       vector<int>p(27,0);
+       set<int>st;
+       for(int i=0;i<s.size();i++) p[s[i]-'a']++; 
+       for(int i=0;i<p.size();i++) if (p[i]!=0) st.insert(p[i]);
+       return (st.size()==1);
+    }
+
+};
