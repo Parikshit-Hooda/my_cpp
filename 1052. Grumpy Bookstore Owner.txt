@@ -1,0 +1,34 @@
+class Solution {
+public:
+    int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {
+        //move a sliding window over grumpy[] such that at max minutes 0s are there, also keep track of sum of eles in customers
+        int maxsum = INT_MIN;
+        int s = 0, e = 0; int curr0s = minutes;
+        int csum = 0;
+        for(; e < grumpy.size(); e++) {
+
+            if(grumpy[e] == 1) {
+                csum += customers[e];
+                maxsum = max(csum,maxsum);
+            } else { //grumpy[e] == 0
+                //first try to shrink
+                curr0s--;
+                if(curr0s < 1) {
+                    while(curr0s < 1) {
+                        csum -= customers[s];
+                        if(grumpy[s] == 0) curr0s++;
+                        s++;
+                        
+                    } //this will set s to index where formed window has lesser 0s than minutes
+                } else csum += customers[e];
+                //curr0s++;
+                maxsum = max(maxsum, csum);
+
+            } //else
+
+        } //for
+
+
+        return maxsum;
+    }
+};
