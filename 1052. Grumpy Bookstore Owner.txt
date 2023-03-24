@@ -1,34 +1,39 @@
 class Solution {
 public:
     int maxSatisfied(vector<int>& customers, vector<int>& grumpy, int minutes) {
-        //move a sliding window over grumpy[] such that at max minutes 0s are there, also keep track of sum of eles in customers
-        int maxsum = INT_MIN;
-        int s = 0, e = 0; int curr0s = minutes;
-        int csum = 0;
+        //slide a window of size max minutes. at each step, find max grumpiness you can reduce
+        int sum = 0;
+        int need = 0;
+        int e = 0, s = 0;
+        int windowi = -1, windowj = -1;
         for(; e < grumpy.size(); e++) {
+            int wsize = e-s+1; //window size
+            sum += (grumpy[e] == 0) ? customers[e] : 0;
+            if(sum > need) {
+                windowi = s, windowj = e; need = sum;
+            }
+            // need = max(sum, need);
+            if(wsize > minutes) {
+                //shrink
+                if(grumpy[s] == 0) sum -= customers[s];
+                s++;
+            }
+            cout <<"sum, need " << s << " " << e << " " << sum << " " << need << endl;
 
-            if(grumpy[e] == 1) {
-                csum += customers[e];
-                maxsum = max(csum,maxsum);
-            } else { //grumpy[e] == 0
-                //first try to shrink
-                curr0s--;
-                if(curr0s < 1) {
-                    while(curr0s < 1) {
-                        csum -= customers[s];
-                        if(grumpy[s] == 0) curr0s++;
-                        s++;
-                        
-                    } //this will set s to index where formed window has lesser 0s than minutes
-                } else csum += customers[e];
-                //curr0s++;
-                maxsum = max(maxsum, csum);
-
-            } //else
-
-        } //for
+        } // this is right
+        int res = 0; int k = 0;
+        for(auto ele: grumpy) {
+            res += (ele > 0) ? customers[k] : 0;
+            k++;
+        }
+        if(windowi != -1 && windowj != -1) {
+            //process the grumpy window
+            for(int i = windowi; i <= windowj; i++) {
+                if(grumpy[i] == 0) res += customers[i];
+            }
+        }
 
 
-        return maxsum;
+        return res;
     }
 };
