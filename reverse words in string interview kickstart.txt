@@ -1,0 +1,44 @@
+//https://www.interviewkickstart.com/problems/reverse-words-in-a-string
+class Solution {
+public:
+    void swap(string &s, int i, int j) {
+        char temp = s[i];
+        s[i] = s[j];
+        s[j] = temp;
+    }
+    string reverseWords(string s) {
+        string res = s;
+        int i = 0, j = s.size()-1;
+        while(i < j) {
+            swap(s,i,j); i++,j--;
+        } //reversed entire string
+        
+        //reverse individual words
+        int start=0,end=0,placeholder=0;
+        while(start < s.size() && end < s.size()) {
+            if(s[start] == ' ') {
+                start++, end++;
+            } else {
+                //found char, collect the word and reverse
+                while(end < s.size() && s[end] != ' ') end++;
+                //here, end points to length or a space
+                int i = start, j = end-1;
+                while(i < j) {
+                    swap(s,i,j); i++,j--;
+                }        
+            start = end;
+            }
+        }
+        return s;
+        // for(; end < s.size(); end++) {
+        //     if(s[end] == ' ') {
+        //         //encountered space, now rever, update window
+        //         placeholder = end;
+        //         //reverse from start to end-1;
+        //         while(start < end) {
+        //             swap(s,start,end); start++, end--;
+        //         }
+        //     }
+        // }
+    }
+};
