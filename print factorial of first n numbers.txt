@@ -1,0 +1,25 @@
+#include <iostream>
+using namespace std;
+
+int factN(int n) {
+	if(n==1) return 1;
+	if(n <= 0) return 0;
+	
+	//cout << n << endl;
+	
+	return n * factN(n-1);
+	
+	
+}
+
+
+int main() {
+	// your code goes here
+	cout <<  factN(0);
+	cout<<"end \n";
+	cout <<  factN(-1);
+	cout<<"end \n";
+	cout << factN(6);
+	cout<<"end \n";
+	return 0;
+}
