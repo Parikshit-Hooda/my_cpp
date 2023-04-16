@@ -1,0 +1,34 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+bool palinUtil(string s, int l, int r) {
+	if(l >= r) return true;
+	if(s[l] != s[r]) return false;
+	return palinUtil(s,l+1,r-1);
+	
+}
+
+
+bool checkPalin(string s) {
+	
+	if(s.size() < 2) return true;
+	return palinUtil(s,0,s.size()-1);
+}
+
+
+int main() {
+	// your code goes here
+	//vector<int> a = {1,2,3,4};
+//	reverseArr(a);
+//	for(auto ele: a) cout << ele << " ";
+	cout <<checkPalin("arora") << endl;
+	cout <<checkPalin("aror") << endl;
+	cout <<checkPalin("a") << endl;
+	cout <<checkPalin("ar") << endl;
+	cout <<checkPalin("ror") << endl;
+	cout <<checkPalin("aa") << endl;
+	cout << endl;
+	return 0;
+}
