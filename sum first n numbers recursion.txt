@@ -1,0 +1,24 @@
+#include <iostream>
+using namespace std;
+
+int sumN(int n) {
+	if(n <= 0) return 0;
+	
+	//cout << n << endl;
+	
+	return n + sumN(n-1);
+	
+	
+}
+
+
+int main() {
+	// your code goes here
+	cout <<  sumN(0);
+	cout<<"end \n";
+	cout <<  sumN(-1);
+	cout<<"end \n";
+	cout << sumN(6);
+	cout<<"end \n";
+	return 0;
+}
