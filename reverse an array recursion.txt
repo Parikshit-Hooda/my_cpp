@@ -1,0 +1,33 @@
+#include <iostream>
+#include <vector>
+
+using namespace std;
+
+void reverseUtil(vector<int> &a, int l, int r) {
+	if(l >= r) return ;
+	
+	int temp = a[l];
+	a[l] = a[r];
+	a[r] = temp;
+	
+	reverseUtil(a,++l,--r);
+	//cout <<"l, r " << l <<"  " << r << endl;
+	return ;
+
+}
+
+void reverseArr(vector<int> &a) {
+	if(a.size() < 2) return ;
+	reverseUtil(a, 0,a.size()-1);
+	return ;
+}
+
+
+int main() {
+	// your code goes here
+	vector<int> a = {1,2,3,4};
+	reverseArr(a);
+	for(auto ele: a) cout << ele << " ";
+	cout << endl;
+	return 0;
+}
