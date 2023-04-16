@@ -1,0 +1,27 @@
+#include <iostream>
+using namespace std;
+
+void printN(int n) {
+	if(n <= 0) return ;
+	
+	
+	printN(n-1);
+	
+	cout << n << endl;
+	
+	return ;
+	
+	
+}
+
+
+int main() {
+	// your code goes here
+	printN(0);
+	cout<<"end \n";
+	printN(-1);
+	cout<<"end \n";
+	printN(6);
+	cout<<"end \n";
+	return 0;
+}
