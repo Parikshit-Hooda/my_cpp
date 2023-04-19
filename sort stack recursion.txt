@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void insertUtil(stack<int> &s, int temp) {
+	if(s.empty() || s.top() < temp ) s.push(temp);
+	else {
+		int temp1 = s.top(); s.pop();
+		insertUtil(s, temp);
+		s.push(temp1);
+	}
+	return ;
+}
+
+void sorts(stack<int> &s) {
+	if(s.empty()) return ;
+	int temp = s.top();
+	s.pop();
+	sorts(s); insertUtil(s, temp);
+}
+
+int main() {
+	// your code goes here
+	stack<int> s;
+	s.push(6); s.push(4); s.push(8); s.push(10); s.push(1);
+	sorts(s);
+	while(!s.empty()) {
+		cout << s.top()<< " "; s.pop();
+	}
+	return 0;
+}
