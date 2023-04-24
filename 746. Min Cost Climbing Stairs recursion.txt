@@ -1,0 +1,48 @@
+class Solution {
+public:
+    
+    void util(vector<int> &cost, int i, int csum, int &msum) {
+       // cout << "\n itr " << i <<"  " << csum <<" " << msum << endl;
+        int csize = cost.size();
+        if(i > csize-1) {
+            msum = min(csum, msum); return ;
+        }
+        csum = csum + cost[i];
+        util(cost, i+1, csum, msum);
+        // csum = csum - cost[i];
+        util(cost, i+2, csum, msum);
+        return ;
+    }
+    
+    int minCostClimbingStairs(vector<int>& cost) {
+        int csize = cost.size();
+        if(csize == 0) return 0;
+        if(csize == 1) return 0;
+        if(csize == 2) return min(cost[0], cost[1]);
+        int csum1 = 0, csum2=0,msum1=INT_MAX, msum2 = INT_MAX;
+        util(cost,0,csum1,msum1);
+        util(cost,1,csum2,msum2);
+        
+        return min(msum1,msum2);
+    }
+};
+
+
+
+
+
+/*
+if(cost.size() == 2)  {
+            return min(cost[0], cost[1]);
+        }
+        vector<int> dp(cost.size()+1, 0); //atleast 3
+        dp[0] = cost[0]; 
+        dp[1] = min(cost[0], cost[1]);
+        for(int i = 2; i < dp.size(); i++) {
+            dp[i] = min(dp[i-1], dp[i-2]) + cost[i-1];
+        }
+        
+        
+        
+        return dp[dp.size()-1];
+*/
