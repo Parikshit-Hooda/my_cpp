@@ -11,19 +11,22 @@
  */
 class Solution {
 public:
-    void util(TreeNode* root, int curr, bool &flag) {
-        if(!root) return ;
-        if(flag == false) return ;
-        if(root->val != curr) flag = false;
-        if(root->left) util(root->left,curr, flag);
-        if(root->right) util(root->right,curr, flag);
+
+    int solve(TreeNode* root,int x){
+        if(!root)
+        return 1;
+
+        if(root->val!=x)
+        return 0;
+
+        return solve(root->left,x) and solve(root->right,x);
+
     }
-    
+
     bool isUnivalTree(TreeNode* root) {
-        int curr = root->val;
-        bool flag = true;
-        //traverse
-        util(root, curr, flag);
-        return flag;
+        if(!root)
+        return 0;
+        return solve(root,root->val);
+        
     }
 };
