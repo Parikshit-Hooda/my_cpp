@@ -1,18 +1,22 @@
 class Solution {
 public:
     int totalFruit(vector<int>& fruits) {
-        int maximum = 1;
-        int s = 0;
-        map<int,int> basket;
-        for(int i = 0; i < fruits.size(); ++i){
-            basket[fruits[i]]++;
-            while(basket.size() > 2){
-                basket[fruits[s]]--;
-                if(basket[fruits[s]]==0) basket.erase(fruits[s]);
-                s++;
+        int i = fruits.size();
+        unordered_map<int,int> mp;
+        int j = i-1;
+        int ans = 0;
+        while(i--){
+            mp[fruits[i]]++;
+            if(mp.size()>2){
+                mp[fruits[j]]--;
+                if(mp[fruits[j]]==0){
+                    mp.erase(fruits[j]);
+                }
+                j--;
             }
-            maximum = max(maximum, i - s + 1);
+            // cout<<i<<" "<<j<<endl;
+            ans = max(j-i+1,ans);
         }
-        return maximum;
+        return ans;
     }
 };
