@@ -1,18 +1,18 @@
 class Solution {
 public:
-    string mergeAlternately(string word1, string word2) 
-    {
-        string ans ; 
-        int i=0; 
-        int j =0; 
-        while(i<word1.size() || j<word2.size()) 
-        {
-            if(i<word1.size()) 
-                ans += word1[i++];
-            if(j<word2.size()) 
-                ans += word2[j++];
-            
+    string mergeAlternately(string s1, string s2) {
+        string ans = "";
+        int i;
+        for(i = 0; i < min(s1.length(),s2.length()); i++){//first add element in ans string alternative untill one string doesn't end
+            ans += s1[i];
+            ans += s2[i];
         }
-        return ans; 
+		//after ending a string add another string chars continuous
+		for(;i < s2.length(); i++){
+            ans += s2[i];
+        }for(;i < s1.length(); i++){
+            ans += s1[i];
+        }
+        return ans;//returning ans string
     }
 };
