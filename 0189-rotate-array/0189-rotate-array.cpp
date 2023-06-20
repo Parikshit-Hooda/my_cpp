@@ -1,17 +1,34 @@
 class Solution {
 public:
-    void rotate(vector<int>& nums, int k) {
-       int er = k % nums.size();
-        //move right er times
-        vector<int> rightpart(nums.begin() + nums.size()-er, nums.end());
-        // for(auto ele: rightpart) cout << ele << " ";
-        //move everything to right from starting till nums.size()-er;
-        vector<int> leftpart(nums.begin(), nums.begin() + nums.size()-er);
-        // for(auto ele: leftpart) cout << ele << " ";
-        int i = 0;
-        for(auto ele: rightpart) nums[i++] = ele;
-        for(auto ele: leftpart) nums[i++] = ele;
+    
+    void reverseNums(vector<int> &nums, int lidx, int ridx) {
+        if(ridx < 0 || lidx < 0) return ;
+        int l = lidx, r = ridx;
         
+        while(l < r && r >= 0) {
+            int temp = nums[l];
+            nums[l] = nums[r];
+            nums[r] = temp;
+            l++;r--;
+        }
         return ;
+    }
+    
+    void rotate(vector<int>& nums, int k) {
+        //1. create a new array and return it
+        //2. copy the k-bit part of array, rotate the original array, paste back the remaining half
+        //3. one by one rotate the array k-times
+        //4. O(1) extra space
+        
+        // 1 2 3 4 5 6 , k = 4, ans = 3 4 5 6 1 2
+        
+        int currk = k;
+        if(currk == 0) return ;
+        currk = currk%nums.size(); //gives effective rotations
+        //approach - first block. 0 to size-k-1. second block. size-k to size-1
+        reverseNums(nums, 0, nums.size()-1-currk);
+        reverseNums(nums, nums.size()-currk, nums.size()-1);
+        reverseNums(nums, 0, nums.size()-1);
+        
     }
 };
