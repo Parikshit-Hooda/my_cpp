@@ -1,12 +1,18 @@
-//by votrubac
-
 class Solution {
 public:
     int minOperations(vector<int>& nums, int k) {
-        int cnt[51] = {}, i = nums.size() - 1;
-        for (int found = 0; found < k; --i)
-            if (nums[i] <= k)
-                found += cnt[nums[i]]++ == 0;
-        return nums.size() - i - 1;
+        int ans = 0;
+        int i = nums.size()-1; int counted = 0;
+        vector<int> cnt(k+1, 0);
+        for(; i >= 0; i--) {
+            if(nums[i] >= 1 && nums[i] <= k) {
+                if(cnt[nums[i]] == 0) { cnt[nums[i]]++; counted++;}
+                if(counted == k) break;
+            }
+        
+        }
+        
+       ans = nums.size() - (i);
+        return ans;
     }
 };
