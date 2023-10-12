@@ -1,20 +1,12 @@
 class Solution {
 public:
-    set<char> s = {'a','e','i','o','u'};
     int vowelStrings(vector<string>& words, int left, int right) {
-        int cnt=0;
-        
-        for(int i = left; i <= right; i++) {
-            // if(left < words.size()  && right >)
-            string curr = words[i];
-            int csize = curr.size();
-            // if(left > csize) continue;
-            // if(csize > right) {
-                if(s.find(curr[0]) != s.end() && s.find(curr[curr.size()-1]) != s.end()) cnt++;
-            // }
+        int x = 0;
+        for(int i = left ; i<= right; i++){
+            if((words[i][0]=='a'||words[i][0]=='e'||words[i][0]=='i'||words[i][0]=='o'||words[i][0]=='u')&&((words[i][words[i].length()-1]=='a'||words[i][words[i].length()-1]=='e'||words[i][words[i].length()-1]=='i'||words[i][words[i].length()-1]=='o'||words[i][words[i].length()-1]=='u'))){
+                x++;
+            }
         }
-        
-        return cnt;
-        
+        return x;
     }
 };
