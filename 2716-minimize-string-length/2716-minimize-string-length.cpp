@@ -1,10 +1,14 @@
 class Solution {
 public:
     int minimizedStringLength(string s) {
-        
-        set<char> st;
-        for(auto ele: s) st.insert(ele);
-        return st.size();
-        
+        vector<bool> v(26,0);
+        int ans = 0;
+        for(auto &i: s){
+            if(!v[i-'a']){
+                ans++;
+                v[i-'a'] = true;
+            }
+        }
+        return ans;
     }
 };
