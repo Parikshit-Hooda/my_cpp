@@ -1,23 +1,15 @@
 class Solution {
 public:
     int semiOrderedPermutation(vector<int>& nums) {
-        
-        //find minidx, maxidx, then calc
-        int minidx = 0, maxidx = 0;
-        
-        for(int i = 0 ; i < nums.size(); i++) {
-            if(nums[i] < nums[minidx]) minidx = i;
-            if(nums[i] > nums[maxidx]) maxidx = i;
+        int a,b,i,n=nums.size();
+        for(i = 0; i < n; i++){
+            if(nums[i]==1)a = i;
+            else if(nums[i]==n)b = i;
         }
-        
-        cout << minidx << "  " << maxidx << "\n";
-        
-        int res = minidx + (nums.size()-1-maxidx);
-        if(minidx > maxidx) res--;
-        if(minidx==maxidx) return 0;
-        
-        cout << res << "\n";
-        
-        return res;
+        if(a<b){
+            return a+n-1-b;
+        }else{
+            return a+n-1-b-1;
+        }
     }
 };
