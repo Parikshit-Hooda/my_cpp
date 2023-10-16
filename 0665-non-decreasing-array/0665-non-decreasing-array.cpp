@@ -1,39 +1,15 @@
 class Solution {
 public:
     bool checkPossibility(vector<int>& nums) {
-    int ans=0,pre=INT_MIN,curr=nums[0];
-    int n = nums.size();
-    for(int i=0;i<n-1;i++)
-
-    {
-
-        if(nums[i+1]>=curr)
-
-        {
-
-            pre=curr;curr=nums[i+1];
-
+        bool ans = false;
+        for(int i = 0; i < nums.size()-1; i++) {
+            if(nums[i] <= nums[i+1]) continue;
+            if(ans && nums[i] > nums[i+1]) return false;
+            
+            if(i==0 || nums[i+1] >= nums[i-1]) { nums[i] = nums[i+1]; ans=true;}
+            else { nums[i+1] = nums[i];  ans=true;}
         }
-
-        else{
-
-            ans++;
-
-            if(nums[i+1]>=pre){
-
-                curr=nums[i+1];
-
-            }
-
-        }
-
-        if(ans>1)
-
-            return false;
-
-    }
-
-    return true;
         
+        return true;
     }
 };
