@@ -1,4 +1,4 @@
-/* Write your T-SQL query statement below */
-select c.Name as Customers
-from Customers c
-where c.Id not in (select CustomerId from Orders);
+SELECT c.Name as Customers
+FROM Customers c
+LEFT JOIN Orders o ON c.Id = o.CustomerId
+WHERE o.CustomerId IS NULL;
